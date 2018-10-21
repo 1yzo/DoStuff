@@ -1,4 +1,6 @@
-import { handleDragStart, handleDragOver, handleDragEnter, handleDragLeave, handleDragEnd, handleDrop } from '../index';
+import { state } from '../index';
+
+import '../styles/item.css';
 
 const Item = (text) => {
     const item = document.createElement('div');
@@ -15,5 +17,43 @@ const Item = (text) => {
 
     return item;
 };
+
+export function handleDragStart(e) {
+    state.dragSourceEl = e.target;
+    state.dragSourceEl.classList.add('item--over');
+    e.target.style.opacity = 0.5;
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/html', e.target.innerHTML);
+}
+
+export function handleDragOver(e) {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+    return false;
+}
+
+export function handleDragEnter(e) {
+    e.target.classList.add('item--over');
+}
+
+export function handleDragLeave(e) {
+    if (e.target !== state.dragSourceEl) {
+        e.target.classList.remove('item--over');
+    }
+}
+
+export function handleDragEnd(e) {
+    e.target.style.opacity = 1;
+}
+
+export function handleDrop(e) {
+    e.stopPropagation();
+    e.target.classList.remove('item--over');
+    state.dragSourceEl.innerHTML = e.target.innerHTML;
+    state.dragSourceEl.classList.remove('item--over');
+    e.target.innerHTML = e.dataTransfer.getData('text/html');
+    return false;
+}
+
 
 export default Item;
