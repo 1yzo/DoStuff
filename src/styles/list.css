@@ -10,16 +10,18 @@
     width: 500px;
     height: 600px;
     padding: 10px;
-    position: relative;
+    overflow: auto;
 }
 
 .item {
     padding: 20px;
-    width: 480px;
     height: 60px;
     background: orange;
     margin: 10px 0;
     cursor: pointer;
-    position: absolute;
-    z-index: 1;
+    transition: transform 200ms ease-in;
+}
+
+.item--over {
+    transform: scale(0.9);
 }

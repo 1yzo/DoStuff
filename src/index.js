@@ -5,51 +5,77 @@ import './styles/list.css';
 
 const todoContainer = document.querySelector('.todo-container');
 const doingContainer = document.querySelector('.doing-container');
-let mouseOffset = { x: 0, y: 0 };
-let isMouseDown = false;
-let selectedItem = undefined;
+let dragSourceEl = null;
 
-todoContainer.appendChild(Item('Item Number One'));
-todoContainer.appendChild(Item('Item Number Two', 70));
-
-Array.from(todoContainer.children).forEach(item => {
-    item.addEventListener('mousedown', e => {
-        onMouseDown(e, item);
-    })
-    item.addEventListener('mouseup', e => {
-        onMouseUp(e, item);
-    });
+document.querySelector('#todo-form').addEventListener('submit', e => {
+    e.preventDefault();
+    const input = e.target.children[0];
+    const todoText = input.value;
+    todoContainer.appendChild(Item(todoText));
+    input.value = '';
 });
 
-function onMouseDown(e, item) {
-    selectedItem = item;
-    mouseOffset = { 
-        x: item.offsetLeft - e.clientX,
-        y: item.offsetTop - e.clientY
-    };
-
-    item.style.background = 'yellowgreen';
+export function handleDragStart(e) {
+    dragSourceEl = e.target;
+    dragSourceEl.classList.add('item--over');
+    e.target.style.opacity = 0.5;
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/html', e.target.innerHTML);
 }
 
-window.addEventListener('mousemove', e => {
-    if (selectedItem) {
-        selectedItem.style.left = e.clientX + mouseOffset.x;
-        selectedItem.style.top = e.clientY + mouseOffset.y;
+export function handleDragOver(e) {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+    return false;
+}
+
+export function handleDragEnter(e) {
+    e.target.classList.add('item--over');
+}
+
+export function handleDragLeave(e) {
+    if (e.target !== dragSourceEl) {
+        e.target.classList.remove('item--over');
     }
+}
+
+export function handleDragEnd(e) {
+    e.target.style.opacity = 1;
+}
+
+export function handleDrop(e) {
+    e.stopPropagation();
+    e.target.classList.remove('item--over');
+    dragSourceEl.innerHTML = e.target.innerHTML;
+    dragSourceEl.classList.remove('item--over');
+    e.target.innerHTML = e.dataTransfer.getData('text/html');
+    return false;
+}
+
+// Container transfers
+doingContainer.addEventListener('dragover', e => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+    return false;
 });
 
-function onMouseUp(e, item) {
-    selectedItem = null;
-    item.style.background = 'orange';
-    if (e.clientX > doingContainer.offsetLeft && e.clientY > doingContainer.offsetTop) {
-        const itemCopy = item;
-        item.remove();
-        doingContainer.appendChild(itemCopy);
-        itemCopy.style.left = doingContainer.style.left;
-    } else {
-        const itemCopy = item;
-        item.remove();
-        todoContainer.appendChild(itemCopy);
-        itemCopy.style.left = todoContainer.style.left;
-    }
-}
+doingContainer.addEventListener('drop', e => {
+    e.stopPropagation();
+    dragSourceEl.remove();
+    const itemEl = Item(e.dataTransfer.getData('text/html'));
+    e.target.appendChild(itemEl);
+    return false;
+});
+todoContainer.addEventListener('dragover', e => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+    return false;
+});
+
+todoContainer.addEventListener('drop', e => {
+    e.stopPropagation();
+    dragSourceEl.remove();
+    const itemEl = Item(e.dataTransfer.getData('text/html'));
+    e.target.appendChild(itemEl);
+    return false;
+});
