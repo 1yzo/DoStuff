@@ -6,14 +6,14 @@ const Item = (text) => {
     const item = document.createElement('div');
     item.className = 'item';
     item.draggable = 'true';
-    item.innerHTML = text;
+    item.textContent = text;
 
-    item.addEventListener('dragstart', handleDragStart, false);
-    item.addEventListener('dragover', handleDragOver, false);
-    item.addEventListener('dragenter', handleDragEnter, false);
-    item.addEventListener('dragleave', handleDragLeave, false);
-    item.addEventListener('dragend', handleDragEnd, false);
-    item.addEventListener('drop', handleDrop, false);
+    item.addEventListener('dragstart', handleDragStart);
+    item.addEventListener('dragover', handleDragOver);
+    item.addEventListener('dragenter', handleDragEnter);
+    item.addEventListener('dragleave', handleDragLeave);
+    item.addEventListener('dragend', handleDragEnd);
+    item.addEventListener('drop', handleDrop);
 
     return item;
 };
@@ -27,22 +27,22 @@ export function handleDragStart(e) {
 
 export function handleDragOver(e) {
     e.preventDefault();
+    e.target.classList.add('item--over');
     e.dataTransfer.dropEffect = 'move';
     return false;
 }
 
 export function handleDragEnter(e) {
-    e.target.classList.add('item--over');
+    // e.target.classList.add('item--over');
 }
 
 export function handleDragLeave(e) {
-    if (e.target !== state.dragSourceEl) {
+    if (e.target !== state.dragSourceEl && e.target.classList) {
         e.target.classList.remove('item--over');
     }
 }
 
 export function handleDragEnd(e) {
-    e.target.style.opacity = 1;
     e.target.classList.remove('item--over');
 }
 
