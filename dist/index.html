@@ -3,17 +3,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    
     <title>Todo</title>
 </head>
 <body>
-    <form id="todo-form" style="margin: 50px 200px">
-        <input id="todo-input" type="text" autofocus /> 
-        <button>Create</button>
-    </form>
-    <div id="list-container">
-        <!-- <div class="list list--todo"></div>
-        <div class="list list--doing"></div> -->
-    </div>
+    <header>
+        <div class="container">
+            <i class="fas fa-archive"></i>
+            <h1>Do Stuff</h1>
+        </div>
+    </header>
+    <div id="list-container" class="container"></div>
 
     <script src="bundle.js"></script>
 </body>

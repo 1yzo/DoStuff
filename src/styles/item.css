@@ -1,12 +1,16 @@
 .item {
     padding: 20px;
-    height: 60px;
-    background: orange;
-    margin: 10px 0;
+    min-height: 60px;
+    background: salmon;
+    color: white;
+    margin: 20px 0;
     cursor: pointer;
-    transition: transform 200ms ease-in;
+    transition: transform 200ms ease-in, opacity 200ms ease-in;
+    border-radius: 5px;
+    font-size: 20px;
 }
 
 .item--over {
     transform: scale(0.9);
+    opacity: 0.5;
 }

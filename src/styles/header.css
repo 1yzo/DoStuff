@@ -1,0 +1,27 @@
+header {
+    background: slateblue;
+    padding: 30px 0;
+}
+
+header .container {
+    display: flex;
+    align-items: center;
+}
+
+header i {
+    color: white;
+    font-size: 40px;
+    margin-right: 7px;
+}
+
+header h1 {
+    color: white;
+    margin: 0;
+    font-size: 45px;
+}
+
+#todo-input {
+    border-radius: 5px;
+    font-size: 20px;
+    padding: 4px;
+}

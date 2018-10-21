@@ -1,14 +1,30 @@
 #list-container {
     display: flex;
-    max-width: 1100px;
-    margin: 100px auto;
+    margin-top: 30px;
+    margin-bottom: 10px;
     justify-content: space-between;
+}
+
+.list-parent {
+    border-radius: 5px;
 }
 
 .list {
     background: #eee;
-    width: 500px;
+    width: 400px;
     height: 600px;
-    padding: 10px;
-    overflow: auto;
+    padding: 0 15px;
+    overflow-y: auto;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.list__title {
+    background: slateblue;
+    color: white;
+    font-size: 30px;
+    text-align: center;
+    padding: 15px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 }

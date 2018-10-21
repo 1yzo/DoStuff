@@ -21,7 +21,6 @@ const Item = (text) => {
 export function handleDragStart(e) {
     state.dragSourceEl = e.target;
     state.dragSourceEl.classList.add('item--over');
-    e.target.style.opacity = 0.5;
     e.dataTransfer.effectAllowed = 'move';
     e.dataTransfer.setData('text/html', e.target.innerHTML);
 }
@@ -44,6 +43,7 @@ export function handleDragLeave(e) {
 
 export function handleDragEnd(e) {
     e.target.style.opacity = 1;
+    e.target.classList.remove('item--over');
 }
 
 export function handleDrop(e) {
