@@ -1,5 +1,5 @@
 .divider {
-    height: 10px;
+    height: 15px;
     background: #eee;
     transition: height 200ms ease-out;
 }

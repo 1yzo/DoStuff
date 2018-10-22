@@ -1,8 +1,7 @@
 import uuid from 'uuid/v4';
 
-import { state, renderTodoList } from '../index';
-
-
+import { state, renderList } from '../index';
+import { getListName } from '../utils';
 
 import '../styles/divider.css';
 
@@ -41,15 +40,17 @@ function handleDragLeave(e, props) {
 function handleDrop(e, props) {
     e.stopPropagation();
     e.target.classList.remove('divider--over');
-    state.dragSourceEl.parentElement.remove();
     const itemProps = JSON.parse(e.dataTransfer.getData('text/json'));
-    state.todoListItems.splice(props.index, 0, { ...itemProps, id: uuid() });
-    state.todoListItems = state.todoListItems.filter(({ id }) => id !== itemProps.id);
-    state.todoListItems = state.todoListItems.map((item, index) => ({
-        ...item,
-        index
-    }));
-    renderTodoList();
+    const destParentListId = e.target.parentElement.parentElement.id;
+    const sourceParentListId = state.dragSourceEl.parentElement.parentElement.id;
+    // Insert at new index in destination list and remove old copy from source list
+    state[getListName(destParentListId)].splice(props.index, 0, { ...itemProps, id: uuid() });
+    state[getListName(sourceParentListId)] = state[getListName(sourceParentListId)].filter(({ id }) => id !== itemProps.id);
+    // If coming from a different list re render that list too
+    if (sourceParentListId !== destParentListId) {
+        renderList(sourceParentListId);
+    }
+    renderList(destParentListId);
 }  
 
 export default Divider;

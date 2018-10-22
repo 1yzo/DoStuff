@@ -1,6 +1,5 @@
-import Item from './Item';
-
-import { state } from '../index';
+import { state, renderList } from '../index';
+import { getListName } from '../utils';
 
 import '../styles/list.css';
 
@@ -33,8 +32,15 @@ function handleDragOver(e) {
 
 function handleDrop(e) {
     e.stopPropagation();
-    state.dragSourceEl.parentElement.remove();
     const itemProps = JSON.parse(e.dataTransfer.getData('text/json'));
+    const sourceParentListId = state.dragSourceEl.parentElement.parentElement.id;
+    const destParentListId = e.target.id;
+    // Remove from source list and add to destination list
+    state[getListName(sourceParentListId)].splice(itemProps.index, 1);
+    state[getListName(destParentListId)].push({ ...itemProps });
+    // Re-render the involved lists
+    renderList(sourceParentListId);
+    renderList(destParentListId);
 };
 
 export default List;
