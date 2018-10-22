@@ -28,8 +28,7 @@ const Divider = (props) => {
 
 function handleDragOver(e, props) {
     e.preventDefault();
-    // e.dataTransfer.dropEffect = 'move';
-    
+
     e.target.classList.add('divider--over');   
 }
 
