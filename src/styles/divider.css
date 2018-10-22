@@ -1,0 +1,9 @@
+.divider {
+    height: 10px;
+    background: #eee;
+    transition: height 200ms ease-out;
+}
+
+.divider--over {
+    height: 60px;
+}

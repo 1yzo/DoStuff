@@ -33,11 +33,8 @@ function handleDragOver(e) {
 
 function handleDrop(e) {
     e.stopPropagation();
-    state.dragSourceEl.remove();
-    const itemEl = Item(e.dataTransfer.getData('text/html'));
-    // e.target.appendChild(itemEl);
-    e.target.appendChild(itemEl);
-    return false;
+    state.dragSourceEl.parentElement.remove();
+    const itemProps = JSON.parse(e.dataTransfer.getData('text/json'));
 };
 
 export default List;

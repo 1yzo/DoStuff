@@ -1,11 +1,15 @@
+import uuid from 'uuid/v4';
+
 import Item from './components/Item';
 import List from './components/List';
+
 
 import './styles/base.css';
 import './styles/header.css';
 
 export const state = {
-    dragSourceEl: null
+    dragSourceEl: null,
+    todoListItems: []
 };
 
 const listContainer = document.querySelector('#list-container');
@@ -19,8 +23,23 @@ listContainer.appendChild(doneList);
 // Use localStorage for now
 const savedItems = JSON.parse(localStorage.getItem('items'));
 if (savedItems) {
-    const actualTodoList = document.querySelector('#todo-list');
-    savedItems.forEach((itemText) => {
-        actualTodoList.appendChild(Item(itemText));
+    savedItems.forEach(({ itemText, index }) => {
+        state.todoListItems.push({
+            text: itemText,
+            index,
+            id: uuid()
+        });
+    })
+}
+
+const actualTodoList = document.querySelector('#todo-list');
+state.todoListItems.forEach(item => {
+    actualTodoList.appendChild(Item(item));
+});
+
+export function renderTodoList() {
+    actualTodoList.innerHTML = null;
+    state.todoListItems.forEach(item => {
+        actualTodoList.appendChild(Item(item));
     });
 }

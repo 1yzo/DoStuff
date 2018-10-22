@@ -3,7 +3,6 @@
     min-height: 60px;
     background: salmon;
     color: white;
-    margin: 20px 0;
     cursor: pointer;
     transition: transform 200ms ease-in, opacity 200ms ease-in;
     border-radius: 5px;
