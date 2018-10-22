@@ -31,6 +31,7 @@ function handleDragOver(e) {
 };
 
 function handleDrop(e) {
+    e.preventDefault();
     e.stopPropagation();
     const itemProps = JSON.parse(e.dataTransfer.getData('text/json'));
     const sourceParentListId = state.dragSourceEl.parentElement.parentElement.id;

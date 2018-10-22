@@ -37,6 +37,7 @@ function handleDragLeave(e, props) {
 }
 
 function handleDrop(e, props) {
+    e.preventDefault();
     e.stopPropagation();
     e.target.classList.remove('divider--over');
     const itemProps = JSON.parse(e.dataTransfer.getData('text/json'));
