@@ -5,11 +5,12 @@ import { state, renderList } from '../index';
 import '../styles/item.css';
 
 const Item = (props) => {
-    const { text, index } = props;
+    const { text, index, justDropped } = props;
 
     const itemParentEl = document.createElement('div');
     const item = document.createElement('div');
     item.className = 'item';
+    justDropped && item.classList.add('item--dropped');
     item.draggable = 'true';
     item.textContent = text;
 

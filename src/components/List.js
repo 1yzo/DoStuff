@@ -38,6 +38,7 @@ function handleDrop(e) {
     // Remove from source list and add to destination list
     state[getListName(sourceParentListId)].splice(itemProps.index, 1);
     state[getListName(destParentListId)].push({ ...itemProps });
+    state.justDroppedItemId = itemProps.id;
     // Re-render the involved lists
     renderList(sourceParentListId);
     renderList(destParentListId);

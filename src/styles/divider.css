@@ -1,7 +1,7 @@
 .divider {
     height: 15px;
     background: #eee;
-    transition: height 200ms ease-out;
+    transition: height 200ms ease-in-out;
 }
 
 .divider--over {

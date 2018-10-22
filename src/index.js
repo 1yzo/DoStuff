@@ -10,6 +10,7 @@ import './styles/header.css';
 
 export const state = {
     dragSourceEl: null,
+    justDroppedItemId: null,
     todoListItems: [],
     doingListItems: [],
     doneListItems: []
@@ -46,7 +47,8 @@ export function renderList(listId) {
     state[getListName(listId)].forEach((item, index) => {
         list.appendChild(Item({
             ...item,
-            index
+            index,
+            justDropped: item.id === state.justDroppedItemId
         }));
     });
 }

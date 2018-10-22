@@ -43,8 +43,11 @@ function handleDrop(e, props) {
     const destParentListId = e.target.parentElement.parentElement.id;
     const sourceParentListId = state.dragSourceEl.parentElement.parentElement.id;
     // Insert at new index in destination list and remove old copy from source list
-    state[getListName(destParentListId)].splice(props.index, 0, { ...itemProps, id: uuid() });
+    const newId = uuid();
+    state[getListName(destParentListId)].splice(props.index, 0, { ...itemProps, id: newId });
     state[getListName(sourceParentListId)] = state[getListName(sourceParentListId)].filter(({ id }) => id !== itemProps.id);
+    
+    state.justDroppedItemId = newId;
     // If coming from a different list re render that list too
     if (sourceParentListId !== destParentListId) {
         renderList(sourceParentListId);
