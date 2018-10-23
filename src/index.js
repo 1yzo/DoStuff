@@ -9,6 +9,7 @@ import { getListName } from './utils';
 import './styles/base.css';
 import './styles/header.css';
 import './styles/modal.css';
+import './styles/inputs.css';
 
 export const state = {
     dragSourceEl: null,
@@ -54,6 +55,7 @@ export function renderList(listId) {
 
 // Adding new items
 const addButtonEl = document.querySelector('.add-button');
-addButtonEl.addEventListener('click', e => {
+addButtonEl.addEventListener('click', () => {
     document.body.appendChild(AddItemModal());
+    document.querySelector('#add-input').focus();
 });

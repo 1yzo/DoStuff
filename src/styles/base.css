@@ -9,6 +9,10 @@ html, body {
     box-sizing: border-box;
 }
 
+button {
+    cursor: pointer;
+}
+
 .container {
     max-width: 1300px;
     margin: 0 auto;
