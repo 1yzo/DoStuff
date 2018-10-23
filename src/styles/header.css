@@ -1,27 +1,37 @@
 header {
-    background: slateblue;
+    background: #6078ff;
+    /* background-image: linear-gradient(0deg, #6078ff, #8660fe); */
     padding: 30px 0;
-}
-
-header .container {
-    display: flex;
-    align-items: center;
+    box-shadow: 0 5px 10px rgba(114, 119, 126, 0.329);
 }
 
 header i {
     color: white;
     font-size: 40px;
+}
+
+header .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.logo-container i {
     margin-right: 7px;
 }
 
-header h1 {
+.logo-container h1 {
     color: white;
     margin: 0;
     font-size: 45px;
+    margin-right: 30px;
 }
 
-#todo-input {
-    border-radius: 5px;
-    font-size: 20px;
-    padding: 4px;
+.add-button {
+    cursor: pointer;
 }

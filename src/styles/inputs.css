@@ -1,0 +1,39 @@
+.add-input {
+    border: none;
+    border-bottom: 3px solid #A5ADBA;
+    font-size: 30px;
+    padding: 10px 5px; 
+    width: 80%;
+    box-shadow: 0 2px 2px -2px #A5ADBA;
+}
+
+.create-button {
+    padding: 10px;
+    background-color: #6078ff;
+    color: white;
+    font-size: 20px;
+    border: none;
+    box-shadow: 0 1px 2px #6078ff81;
+    border-radius: 5px;
+
+}
+
+.color-picker-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+}
+
+.color-picker {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 200ms ease-in-out;
+}
+
+.color-picker--selected {
+    border: solid 3px #A5ADBA;
+    transform: scale(1.6);
+}

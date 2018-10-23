@@ -7,6 +7,7 @@
 
 .list-parent {
     border-radius: 5px;
+    box-shadow: 0 1px 10px rgba(114, 119, 126, 0.329);
 }
 
 .list {
@@ -20,7 +21,8 @@
 }
 
 .list__title {
-    background: slateblue;
+    background: #6078ff;
+    /* background-image: linear-gradient(0deg, #6078ff, #8660fe);   */
     color: white;
     font-size: 30px;
     text-align: center;
