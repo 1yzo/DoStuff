@@ -1,19 +1,22 @@
 import Divider from './Divider';
 
-import { state, renderList } from '../index';
+import { state } from '../index';
 
 import '../styles/item.css';
 
 const Item = (props) => {
-    const { text, index, justDropped } = props;
+    const { text, index, justDropped, color } = props;
 
     const itemParentEl = document.createElement('div');
     const item = document.createElement('div');
     item.className = 'item';
     justDropped && item.classList.add('item--dropped');
     item.draggable = 'true';
-    item.textContent = text;
-
+    item.innerHTML = `
+        <div class="item__header" style="background-color: ${color}"></div>
+        <div class="item__content">${text}</div>
+    `;
+    
     item.addEventListener('dragstart', e => {
         handleDragStart(e, props);   
     });

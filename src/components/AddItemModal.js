@@ -21,15 +21,17 @@ const AddItemModal = () => {
     modalContent.className = 'modal-content';
     modalContent.addEventListener('submit', e => {
         e.preventDefault();
-        const newItemId = uuid();
-        state.justDroppedItemId = newItemId;
-        const newItemProps = {
-            id: newItemId,
-            text: addInput.value
-        };
-        state.todoListItems.unshift(newItemProps);
-        renderList('todo-list');
-        modal.classList.add('modal-mask--hide');
+        if (addInput.value) {
+            const newItemId = uuid();
+            state.justDroppedItemId = newItemId;
+            const newItemProps = {
+                id: newItemId,
+                text: addInput.value
+            };
+            state.todoListItems.unshift(newItemProps);
+            renderList('todo-list');
+            modal.classList.add('modal-mask--hide');
+        }
     });
 
     const addInput = document.createElement('input');

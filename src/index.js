@@ -31,7 +31,8 @@ if (savedItems) {
         state.todoListItems.push({
             id: uuid(),
             text: itemText,
-            index
+            index,
+            color: '#A5ADBA'
         });
     })
 }
