@@ -26,7 +26,8 @@ const AddItemModal = () => {
             state.justDroppedItemId = newItemId;
             const newItemProps = {
                 id: newItemId,
-                text: addInput.value
+                text: addInput.value,
+                color: state.newItemColor
             };
             state.todoListItems.unshift(newItemProps);
             renderList('todo-list');

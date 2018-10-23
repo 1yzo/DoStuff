@@ -1,3 +1,5 @@
+import { state } from '../index';
+
 const ColorPickerSingle = (hexValue) => {
     const picker = document.createElement('div');
     picker.className = 'color-picker';
@@ -9,7 +11,8 @@ const ColorPickerSingle = (hexValue) => {
             picker.classList.remove('color-picker--selected');
         });
         picker.classList.add('color-picker--selected');
-        picker.style.boxShadow = `0 1px 2px #A5ADBA`;        
+        picker.style.boxShadow = `0 1px 2px #A5ADBA`;      
+        state.newItemColor = hexValue;
     });
 
     return picker;

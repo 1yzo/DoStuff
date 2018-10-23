@@ -14,6 +14,7 @@ import './styles/inputs.css';
 export const state = {
     dragSourceEl: null,
     justDroppedItemId: null,
+    newItemColor: null,
     todoListItems: [],
     doingListItems: [],
     doneListItems: []
@@ -32,7 +33,7 @@ if (savedItems) {
             id: uuid(),
             text: itemText,
             index,
-            color: '#A5ADBA'
+            color: '#42526E'
         });
     })
 }
@@ -49,7 +50,7 @@ export function renderList(listId) {
         list.appendChild(Item({
             ...item,
             index,
-            justDropped: item.id === state.justDroppedItemId
+            justDropped: item.id === state.justDroppedItemId,
         }));
     });
 }
