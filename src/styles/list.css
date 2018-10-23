@@ -21,8 +21,8 @@
 }
 
 .list__title {
-    /* background: slateblue; */
-    background-image: linear-gradient(0deg, #6078ff, #8660fe);  
+    background: #6078ff;
+    /* background-image: linear-gradient(0deg, #6078ff, #8660fe);   */
     color: white;
     font-size: 30px;
     text-align: center;
