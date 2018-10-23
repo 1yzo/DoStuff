@@ -2,11 +2,13 @@ import uuid from 'uuid/v4';
 
 import Item from './components/Item';
 import List from './components/List';
+import AddItemModal from './components/AddItemModal';
 
 import { getListName } from './utils';
 
 import './styles/base.css';
 import './styles/header.css';
+import './styles/modal.css';
 
 export const state = {
     dragSourceEl: null,
@@ -17,12 +19,9 @@ export const state = {
 };
 
 const listContainer = document.querySelector('#list-container');
-const todoList = List({ id: 'todo-list', title: 'Stuff Todo' });
-const doingList = List({ id: 'doing-list', title: "Stuff I'm Doing" });
-const doneList = List({ id: 'done-list', title: 'Stuff I Did'});
-listContainer.appendChild(todoList);
-listContainer.appendChild(doingList);
-listContainer.appendChild(doneList);
+listContainer.appendChild(List({ id: 'todo-list', title: 'Stuff Todo' }));
+listContainer.appendChild(List({ id: 'doing-list', title: "Stuff I'm Doing" }));
+listContainer.appendChild(List({ id: 'done-list', title: 'Stuff I Did'}));
 
 // Use localStorage for now
 const savedItems = JSON.parse(localStorage.getItem('items'));
@@ -52,3 +51,9 @@ export function renderList(listId) {
         }));
     });
 }
+
+// Adding new items
+const addButtonEl = document.querySelector('.add-button');
+addButtonEl.addEventListener('click', e => {
+    document.body.appendChild(AddItemModal());
+});
