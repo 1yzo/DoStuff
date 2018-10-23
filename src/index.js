@@ -53,9 +53,10 @@ export function renderList(listId) {
     });
 }
 
-// Adding new items
+// Popup modal for adding new items
 const addButtonEl = document.querySelector('.add-button');
 addButtonEl.addEventListener('click', () => {
     document.body.appendChild(AddItemModal());
     document.querySelector('#add-input').focus();
+    document.querySelectorAll('.color-picker')[0].click();
 });

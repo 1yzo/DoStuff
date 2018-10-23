@@ -17,3 +17,23 @@
     border-radius: 5px;
 
 }
+
+.color-picker-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+}
+
+.color-picker {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 300ms ease-in-out;
+}
+
+.color-picker--selected {
+    border: solid 3px #A5ADBA;
+    transform: scale(1.6);
+}

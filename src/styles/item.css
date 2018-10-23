@@ -16,7 +16,7 @@
 }
 
 .item--dropped {
-    animation: drop 200ms ease-in-out forwards;
+    animation: drop 200ms ease-in-out 1;
 }
 
 @keyframes drop {

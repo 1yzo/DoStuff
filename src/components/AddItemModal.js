@@ -1,5 +1,7 @@
 import uuid from 'uuid/v4';
 
+import ColorPickerSingle from './ColorPickerSingle';
+
 import { state, renderList } from '../index';
 
 const AddItemModal = () => {
@@ -15,18 +17,10 @@ const AddItemModal = () => {
         e.target.id === 'add-modal' && modal.remove();
     });
 
-    const modalContent = document.createElement('div');
+    const modalContent = document.createElement('form');
     modalContent.className = 'modal-content';
-
-    const addInput = document.createElement('input');
-    addInput.id = 'add-input';
-    addInput.className = 'add-input';
-    addInput.type = 'text';
-
-    const createButton = document.createElement('button');
-    createButton.className = 'create-button';
-    createButton.innerHTML = 'Create';
-    createButton.addEventListener('click', () => {
+    modalContent.addEventListener('submit', e => {
+        e.preventDefault();
         const newItemId = uuid();
         state.justDroppedItemId = newItemId;
         const newItemProps = {
@@ -38,8 +32,27 @@ const AddItemModal = () => {
         modal.classList.add('modal-mask--hide');
     });
 
+    const addInput = document.createElement('input');
+    addInput.id = 'add-input';
+    addInput.className = 'add-input';
+    addInput.type = 'text';
+
+    const colorPicker = document.createElement('div');
+    colorPicker.className = 'color-picker-container';
+    colorPicker.appendChild(ColorPickerSingle('#42526E'));
+    colorPicker.appendChild(ColorPickerSingle('#FFAB00'));
+    colorPicker.appendChild(ColorPickerSingle('#FF5630'));
+    colorPicker.appendChild(ColorPickerSingle('#36B37E'));
+    colorPicker.appendChild(ColorPickerSingle('#0052CC'));
+
+    const createButton = document.createElement('button');
+    createButton.className = 'create-button';
+    createButton.innerHTML = 'Create';
+
     modalContent.appendChild(addInput);
+    modalContent.appendChild(colorPicker);
     modalContent.appendChild(createButton);
+
     modal.appendChild(modalContent);
     
     return modal;
