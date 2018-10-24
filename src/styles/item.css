@@ -3,6 +3,7 @@
     border-radius: 5px;
     position: relative;
     cursor: pointer;
+    transition: transform 200ms ease-in-out, opacity 200ms ease-in;
 }
 
 .item::after {
@@ -13,7 +14,7 @@
     top: 0;
     left: 0;
     border-radius: 5px;
-    box-shadow: 0 1px 10px rgba(114, 119, 126, 0.329);
+    box-shadow: 2px 1px 10px rgba(114, 119, 126, 0.329);
 }
 
 .item__header {
@@ -25,11 +26,11 @@
 .item__content {
     padding: 20px;
     background: white;
-    transition: transform 200ms ease-in-out, opacity 200ms ease-in;
     font-size: 20px;
     word-wrap: break-word;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
+    line-height: 1.5em;
 }
 
 .item--over {

@@ -21,7 +21,7 @@ const AddItemModal = () => {
     modalContent.className = 'modal-content';
     modalContent.addEventListener('submit', e => {
         e.preventDefault();
-        if (addInput.value) {
+        if (addInput.value.trim()) {
             const newItemId = uuid();
             state.justDroppedItemId = newItemId;
             const newItemProps = {
@@ -39,6 +39,7 @@ const AddItemModal = () => {
     addInput.id = 'add-input';
     addInput.className = 'add-input';
     addInput.type = 'text';
+    addInput.autocomplete = 'off';
 
     const colorPicker = document.createElement('div');
     colorPicker.className = 'color-picker-container';
@@ -50,7 +51,7 @@ const AddItemModal = () => {
 
     const createButton = document.createElement('button');
     createButton.className = 'create-button';
-    createButton.innerHTML = 'Create';
+    createButton.innerHTML = 'Create Task';
 
     modalContent.appendChild(addInput);
     modalContent.appendChild(colorPicker);
