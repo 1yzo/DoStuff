@@ -5,11 +5,15 @@ import List from './components/List';
 import AddItemModal from './components/AddItemModal';
 
 import { getListName } from './utils';
+import configureStore from './redux/configureStore';
+import { setList } from './redux/actions/lists';
 
 import './styles/base.css';
 import './styles/header.css';
 import './styles/modal.css';
 import './styles/inputs.css';
+
+const store = configureStore();
 
 export const state = {
     dragSourceEl: null,
@@ -28,14 +32,13 @@ listContainer.appendChild(List({ id: 'done-list', title: 'Stuff I Did'}));
 // Use localStorage for now
 const savedItems = JSON.parse(localStorage.getItem('items'));
 if (savedItems) {
-    savedItems.forEach(({ itemText, index }) => {
-        state.todoListItems.push({
-            id: uuid(),
-            text: itemText,
-            index,
-            color: '#42526E'
-        });
-    })
+    const todoList = savedItems.map(({ itemText, index }) => ({
+        id: uuid(),
+        text: itemText,
+        index,
+        color: '#42526E'
+    }));
+
 }
 
 const actualTodoList = document.querySelector('#todo-list');
