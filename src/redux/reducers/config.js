@@ -14,12 +14,12 @@ export default (state = defaultState, action) => {
         case 'SET_JUST_DROPPED_ID':
             return {
                 ...state,
-                justDroppedId: action.justDroppedId
+                justDroppedId: action.itemId
             };
         case 'SET_NEW_ITEM_COLOR':
             return {
                 ...state,
-                newItemColor: action.newItemColor
+                newItemColor: action.color
             };
         default:
             return state;

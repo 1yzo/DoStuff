@@ -1,8 +1,8 @@
-import uuid from 'uuid/v4';
-
-import { state, renderList } from '../index';
-import { getListName } from '../utils';
-
+// Modules
+import { store, renderList } from '../index';
+import { getListKey } from '../utils';
+import { startInsertItem } from '../redux/actions/lists';
+// Styles
 import '../styles/divider.css';
 
 
@@ -36,19 +36,15 @@ function handleDragLeave(e, props) {
     e.target.classList.remove('divider--over');
 }
 
-function handleDrop(e, props) {
+async function handleDrop(e, props) {
     e.preventDefault();
     e.stopPropagation();
     e.target.classList.remove('divider--over');
     const itemProps = JSON.parse(e.dataTransfer.getData('text/json'));
     const destParentListId = e.target.parentElement.parentElement.id;
-    const sourceParentListId = state.dragSourceEl.parentElement.parentElement.id;
+    const sourceParentListId = store.getState().config.dragSource.parentElement.parentElement.id;
     // Insert at new index in destination list and remove old copy from source list
-    const newId = uuid();
-    state[getListName(destParentListId)].splice(props.index, 0, { ...itemProps, id: newId });
-    state[getListName(sourceParentListId)] = state[getListName(sourceParentListId)].filter(({ id }) => id !== itemProps.id);
-    
-    state.justDroppedItemId = newId;
+    await store.dispatch(startInsertItem(getListKey(sourceParentListId), getListKey(destParentListId), itemProps, props.index));
     // If coming from a different list re render that list too
     if (sourceParentListId !== destParentListId) {
         renderList(sourceParentListId);

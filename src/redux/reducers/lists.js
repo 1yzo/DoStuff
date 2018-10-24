@@ -1,5 +1,3 @@
-import uuid from 'uuid/v4';
-
 const defaultState = {
     todo: [],
     doing: [],
@@ -15,6 +13,16 @@ export default (state = defaultState, action) => {
                 [listKey]: items
             }; 
         }
+        case 'UNSHIFT_ITEM': {
+            const { listKey, newItem } = action;
+            return {
+                ...state,
+                [listKey]: [newItem, ...state[listKey]].map((item, index) => ({
+                    ...item,
+                    index
+                }))
+            };
+        }
         case 'PUSH_ITEM': {
             const { listKey, newItem } = action;
             return {
@@ -26,17 +34,51 @@ export default (state = defaultState, action) => {
             }
         }
         case 'INSERT_ITEM': {
-            const { listKey, item, newIndex } = action;
-
+            const { sourceListKey, destListKey, item, newIndex, oldId } = action;
+            
+            // Insert at new index in destination list
+            let nextDestList = [...state[destListKey]];
+            nextDestList.splice(newIndex, 0, item);
+            // Remove from source list
+            const nextSourceList = [...state[sourceListKey]];
+            // If destination and source are  same just return filtered destList
+            if (sourceListKey !== destListKey) {
+                return {
+                    ...state,
+                    [destListKey]: [...nextDestList].map((item, index) => ({
+                        ...item,
+                        index
+                    })),
+                    [sourceListKey]: [...nextSourceList]
+                        .filter(({ id }) => id !== oldId)
+                        .map((item, index) => ({
+                            ...item,
+                            index
+                        }))
+                };
+            } else {
+                return {
+                    ...state,
+                    [destListKey]: [...nextDestList]
+                        .filter(({ id }) => id !== oldId)
+                        .map((item, index) => ({
+                            ...item,
+                            index
+                        }))
+                };
+            }
+        }
+        case 'REMOVE_ITEM': {
+            const { listKey, index } = action;
             let nextList = [...state[listKey]];
-            const newId = uuid();
-            nextList.splice(newIndex, 0, { ...item, id: newId });
-            nextList = nextList.filter(({ id }) => id !== item.id);
-
+            nextList.splice(index, 1);
             return {
                 ...state,
-                [listKey]: [...nextList]
-            }
+                [listKey]: [...nextList].map((item, i) => ({
+                    ...item,
+                    index: i
+                }))
+            };
         }
         default:
             return state;

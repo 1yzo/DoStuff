@@ -1,4 +1,5 @@
-import { state } from '../index';
+import { store } from '../index';
+import { setNewItemColor } from '../redux/actions/config';
 
 const ColorPickerSingle = (hexValue) => {
     const picker = document.createElement('div');
@@ -12,7 +13,7 @@ const ColorPickerSingle = (hexValue) => {
         });
         picker.classList.add('color-picker--selected');
         picker.style.boxShadow = `0 1px 2px #A5ADBA`;      
-        state.newItemColor = hexValue;
+        store.dispatch(setNewItemColor(hexValue));
     });
 
     return picker;

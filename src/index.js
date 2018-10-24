@@ -1,28 +1,20 @@
+// Node Modules
 import uuid from 'uuid/v4';
-
+// Components
 import Item from './components/Item';
 import List from './components/List';
 import AddItemModal from './components/AddItemModal';
-
-import { getListName } from './utils';
+// Modules
+import { getListKey } from './utils';
 import configureStore from './redux/configureStore';
 import { setList } from './redux/actions/lists';
-
+// Styles
 import './styles/base.css';
 import './styles/header.css';
 import './styles/modal.css';
 import './styles/inputs.css';
 
-const store = configureStore();
-
-export const state = {
-    dragSourceEl: null,
-    justDroppedItemId: null,
-    newItemColor: null,
-    todoListItems: [],
-    doingListItems: [],
-    doneListItems: []
-};
+export const store = configureStore();
 
 const listContainer = document.querySelector('#list-container');
 listContainer.appendChild(List({ id: 'todo-list', title: 'Stuff Todo' }));
@@ -38,22 +30,21 @@ if (savedItems) {
         index,
         color: '#42526E'
     }));
-
+    store.dispatch(setList('todo', todoList));
 }
 
 const actualTodoList = document.querySelector('#todo-list');
-state.todoListItems.forEach(item => {
+store.getState().lists.todo.forEach(item => {
     actualTodoList.appendChild(Item(item));
 });
 
 export function renderList(listId) {
     const list = document.querySelector(`#${listId}`);
     list.innerHTML = null;
-    state[getListName(listId)].forEach((item, index) => {
+    store.getState().lists[getListKey(listId)].forEach(item => {
         list.appendChild(Item({
             ...item,
-            index,
-            justDropped: item.id === state.justDroppedItemId,
+            justDropped: item.id === store.getState().config.justDroppedId,
         }));
     });
 }

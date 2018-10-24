@@ -1,1 +1,1 @@
-export const getListName = (parentListId) => `${parentListId.split('-')[0]}ListItems`;
+export const getListKey = (parentListId) => parentListId.split('-')[0]; // should match with keys in state.lists
