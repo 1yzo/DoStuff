@@ -1,6 +1,8 @@
-import { state, renderList } from '../index';
-import { getListName } from '../utils';
-
+// Modules
+import { store, renderList } from '../index';
+import { getListKey } from '../utils';
+import { startRemoveItem, startPushItem } from '../redux/actions/lists';
+// Styles
 import '../styles/list.css';
 
 
@@ -30,16 +32,15 @@ function handleDragOver(e) {
     return false;
 };
 
-function handleDrop(e) {
+async function handleDrop(e) {
     e.preventDefault();
     e.stopPropagation();
     const itemProps = JSON.parse(e.dataTransfer.getData('text/json'));
-    const sourceParentListId = state.dragSourceEl.parentElement.parentElement.id;
+    const sourceParentListId = store.getState().config.dragSource.parentElement.parentElement.id;
     const destParentListId = e.target.id;
     // Remove from source list and add to destination list
-    state[getListName(sourceParentListId)].splice(itemProps.index, 1);
-    state[getListName(destParentListId)].push({ ...itemProps });
-    state.justDroppedItemId = itemProps.id;
+    await store.dispatch(startRemoveItem(getListKey(sourceParentListId), itemProps.index));
+    await store.dispatch(startPushItem(getListKey(destParentListId), itemProps));
     // Re-render the involved lists
     renderList(sourceParentListId);
     renderList(destParentListId);

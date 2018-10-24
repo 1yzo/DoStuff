@@ -1,7 +1,9 @@
+// Components
 import Divider from './Divider';
-
-import { state } from '../index';
-
+// Modules
+import { store } from '../index';
+import { setDragSource } from '../redux/actions/config';
+// Styles
 import '../styles/item.css';
 
 const Item = (props) => {
@@ -30,20 +32,19 @@ const Item = (props) => {
     return itemParentEl;
 };
 
-export function handleDragStart(e, props) {
-    state.dragSourceEl = e.target;
-    state.dragSourceEl.classList.add('item--over');
+function handleDragStart(e, props) {
+    e.target.classList.add('item--over');
+    store.dispatch(setDragSource(e.target));
     e.dataTransfer.effectAllowed = 'move';
-    e.dataTransfer.setData('text/html', e.target.innerHTML);
     e.dataTransfer.setData('text/json', JSON.stringify(props));
 }
 
-export function handleDragEnd(e) {
-    e.target.classList.remove('item--over')
-    state.dragSourceEl = null;
+function handleDragEnd(e) {
+    e.target.classList.remove('item--over');
+    store.dispatch(setDragSource(null));
 }
 
-export function handleDrop(e) {
+function handleDrop(e) {
     e.stopPropagation();
     e.target.classList.remove('item--over');
 }

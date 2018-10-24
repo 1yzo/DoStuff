@@ -1,8 +1,8 @@
-import uuid from 'uuid/v4';
-
+// Components
 import ColorPickerSingle from './ColorPickerSingle';
-
-import { state, renderList } from '../index';
+// Modules
+import { store, renderList } from '../index';
+import { startUnshiftItem } from '../redux/actions/lists';
 
 const AddItemModal = () => {
     const modal = document.createElement('div');
@@ -19,19 +19,16 @@ const AddItemModal = () => {
 
     const modalContent = document.createElement('form');
     modalContent.className = 'modal-content';
-    modalContent.addEventListener('submit', e => {
+    modalContent.addEventListener('submit', async e => {
         e.preventDefault();
         if (addInput.value.trim()) {
-            const newItemId = uuid();
-            state.justDroppedItemId = newItemId;
-            const newItemProps = {
-                id: newItemId,
+            const newItem = {
                 text: addInput.value,
-                color: state.newItemColor
+                color: store.getState().config.newItemColor
             };
-            state.todoListItems.unshift(newItemProps);
-            renderList('todo-list');
+            await store.dispatch(startUnshiftItem('todo', newItem));
             modal.classList.add('modal-mask--hide');
+            renderList('todo-list');
         }
     });
 
