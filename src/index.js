@@ -50,10 +50,10 @@ export function renderList(listId) {
 }
 
 // Popup modal for adding new items
-const modal = document.body.appendChild(AddItemModal());
 
 const addButtonEl = document.querySelector('.add-button');
 addButtonEl.addEventListener('click', () => {
+    const modal = document.body.appendChild(AddItemModal());
     fadeIn(modal, 200);
     document.querySelector('#add-input').focus();
     document.querySelectorAll('.color-picker')[0].click();

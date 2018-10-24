@@ -14,8 +14,12 @@ export const fadeIn = (element, duration) => {
 
 export const fadeOut = (element, duration) => {
     (function decrement() {
-        (element.style.opacity -= 0.1) < 0 ? element.style.display = 'none' : setTimeout(() => {
-            decrement();
-        }, duration / 10);
+        if ((element.style.opacity -= 0.1) < 0) {
+            element.remove()
+        } else {
+            setTimeout(() => {
+                decrement();
+            }, duration / 10);
+        } 
     })();
 };
