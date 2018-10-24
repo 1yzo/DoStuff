@@ -14,6 +14,7 @@ const ColorPickerSingle = (hexValue) => {
         picker.classList.add('color-picker--selected');
         picker.style.boxShadow = `0 1px 2px #A5ADBA`;      
         store.dispatch(setNewItemColor(hexValue));
+        document.querySelector('#add-input').focus();
     });
 
     return picker;

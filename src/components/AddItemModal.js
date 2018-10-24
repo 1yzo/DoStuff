@@ -3,18 +3,22 @@ import ColorPickerSingle from './ColorPickerSingle';
 // Modules
 import { store, renderList } from '../index';
 import { startUnshiftItem } from '../redux/actions/lists';
+import { fadeOut } from '../utils';
 
 const AddItemModal = () => {
     const modal = document.createElement('div');
     modal.id = 'add-modal';
     modal.className = 'modal-mask';
+    // modal.addEventListener('transitionend', e => {
+    //     // e.target.id === 'add-modal' && modal.remove();
+    //     if (e.target.id === 'add-modal') {
+    //         modal.style.visibility = 'hidden';
+    //     }
+    // });
     modal.addEventListener('click', e => {
         if (e.target.className === 'modal-mask') {
-            modal.classList.add('modal-mask--hide');
+            fadeOut(modal, 200);
         }
-    });
-    modal.addEventListener('transitionend', e => {
-        e.target.id === 'add-modal' && modal.remove();
     });
 
     const modalContent = document.createElement('form');
@@ -27,7 +31,8 @@ const AddItemModal = () => {
                 color: store.getState().config.newItemColor
             };
             await store.dispatch(startUnshiftItem('todo', newItem));
-            modal.classList.add('modal-mask--hide');
+            fadeOut(modal, 200);
+            addInput.value = '';
             renderList('todo-list');
         }
     });
