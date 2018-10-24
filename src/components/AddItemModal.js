@@ -9,12 +9,6 @@ const AddItemModal = () => {
     const modal = document.createElement('div');
     modal.id = 'add-modal';
     modal.className = 'modal-mask';
-    // modal.addEventListener('transitionend', e => {
-    //     // e.target.id === 'add-modal' && modal.remove();
-    //     if (e.target.id === 'add-modal') {
-    //         modal.style.visibility = 'hidden';
-    //     }
-    // });
     modal.addEventListener('click', e => {
         if (e.target.className === 'modal-mask') {
             fadeOut(modal, 200);

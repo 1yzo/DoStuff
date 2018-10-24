@@ -9,8 +9,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    /* transition: opacity 200ms ease-in-out; */
-    /* animation: fade-in 300ms ease-in-out 1; */
 }
 
 .modal-content {
@@ -24,13 +22,4 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-}
-
-@keyframes fade-in {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
 }
