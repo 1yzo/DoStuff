@@ -5,7 +5,7 @@ import Item from './components/Item';
 import List from './components/List';
 import AddItemModal from './components/AddItemModal';
 // Modules
-import { getListKey } from './utils';
+import { getListKey, fadeIn } from './utils';
 import configureStore from './redux/configureStore';
 import { setList } from './redux/actions/lists';
 // Styles
@@ -50,9 +50,11 @@ export function renderList(listId) {
 }
 
 // Popup modal for adding new items
+
 const addButtonEl = document.querySelector('.add-button');
 addButtonEl.addEventListener('click', () => {
-    document.body.appendChild(AddItemModal());
+    const modal = document.body.appendChild(AddItemModal());
+    fadeIn(modal, 200);
     document.querySelector('#add-input').focus();
     document.querySelectorAll('.color-picker')[0].click();
 });
