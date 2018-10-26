@@ -42,7 +42,7 @@ export function renderList(listId, options = { save: true }) {
     // save
     if (options.save) {
         fetch(`http://localhost:3000/boards/${boardId}`, {
-            method: 'PUT',
+            method: 'PUT', 
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ [listKey]: store.getState().lists[listKey] })
         })
