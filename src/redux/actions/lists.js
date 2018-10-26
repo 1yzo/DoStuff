@@ -22,13 +22,12 @@ const pushItem = (listKey, newItem) => ({
     newItem
 });
 // For dropping items between other items
-const insertItem = (sourceListKey, destListKey, item, newIndex, oldId) => ({
+const insertItem = (sourceListKey, destListKey, item, newIndex) => ({
     type: 'INSERT_ITEM',
     sourceListKey,
     destListKey,
     item,
     newIndex,
-    oldId
 });
 
 const removeItem = (listKey, index) => ({
@@ -39,31 +38,35 @@ const removeItem = (listKey, index) => ({
 
 export const startUnshiftItem = (listKey, newItem) => dispatch => {
     return new Promise(resolve => {
-        const newId = uuid();
-        dispatch(setJustDroppedId(newId));
-        dispatch(unshiftItem(listKey, {
-            ...newItem,
-            id: newId
-        }));
+        dispatch(setJustDroppedId(newItem.id));
+        dispatch(unshiftItem(listKey, newItem));
         resolve();
     });
 };
 
 export const startPushItem = (listKey, newItem) => dispatch => new Promise(resolve => {
-    const newId = uuid();
-    dispatch(setJustDroppedId(newId));
-    dispatch(pushItem(listKey, {
-        ...newItem,
-        id: newId
-    }));
+    dispatch(setJustDroppedId(newItem.id));
+    dispatch(pushItem(listKey, newItem));
     resolve();
 });
 
-export const startInsertItem = (sourceListKey, destListKey, item, newIndex) => dispatch => new Promise(resolve => {
-    const oldId = item.id;
-    const newId = uuid();
-    dispatch(setJustDroppedId(newId));
-    dispatch(insertItem(sourceListKey, destListKey, { ...item, id: newId }, newIndex, oldId));
+export const startInsertItem = (sourceListKey, destListKey, item, newIndex) => (dispatch, getState) => new Promise(resolve => {
+    dispatch(setJustDroppedId(item.id));
+    dispatch(setList(sourceListKey, getState().lists[sourceListKey].map((currItem, index) => {
+        if (currItem.id === item.id) {
+            return {
+                ...currItem,
+                index,
+                old: true
+            };
+        } else {
+            return {
+                ...currItem,
+                index
+            };
+        }
+    })));
+    dispatch(insertItem(sourceListKey, destListKey, item, newIndex));
     resolve();
 });
 

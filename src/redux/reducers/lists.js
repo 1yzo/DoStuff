@@ -34,7 +34,7 @@ export default (state = defaultState, action) => {
             }
         }
         case 'INSERT_ITEM': {
-            const { sourceListKey, destListKey, item, newIndex, oldId } = action;
+            const { sourceListKey, destListKey, item, newIndex } = action;
             
             // Insert at new index in destination list
             let nextDestList = [...state[destListKey]];
@@ -50,7 +50,7 @@ export default (state = defaultState, action) => {
                         index
                     })),
                     [sourceListKey]: [...nextSourceList]
-                        .filter(({ id }) => id !== oldId)
+                        .filter(item => !item['old'])
                         .map((item, index) => ({
                             ...item,
                             index
@@ -60,7 +60,7 @@ export default (state = defaultState, action) => {
                 return {
                     ...state,
                     [destListKey]: [...nextDestList]
-                        .filter(({ id }) => id !== oldId)
+                        .filter(item => !item['old'])
                         .map((item, index) => ({
                             ...item,
                             index
