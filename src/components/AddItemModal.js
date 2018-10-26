@@ -1,3 +1,5 @@
+// Node Modules
+import uuid from 'uuid/v4';
 // Components
 import ColorPickerSingle from './ColorPickerSingle';
 // Modules
@@ -21,8 +23,11 @@ const AddItemModal = () => {
         e.preventDefault();
         if (addInput.value.trim()) {
             const newItem = {
-                text: addInput.value,
-                color: store.getState().config.newItemColor
+                id: uuid(),
+                title: addInput.value,
+                details: [],
+                color: store.getState().config.newItemColor,
+                comments: []
             };
             await store.dispatch(startUnshiftItem('todo', newItem));
             fadeOut(modal, 200);

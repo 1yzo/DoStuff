@@ -7,7 +7,7 @@ import { setDragSource } from '../redux/actions/config';
 import '../styles/item.css';
 
 const Item = (props) => {
-    const { text, index, justDropped, color } = props;
+    const { title, index, justDropped, color } = props;
 
     const itemParentEl = document.createElement('div');
     const item = document.createElement('div');
@@ -16,7 +16,7 @@ const Item = (props) => {
     item.draggable = 'true';
     item.innerHTML = `
         <div class="item__header" style="background-color: ${color}"></div>
-        <div class="item__content">${text}</div>
+        <div class="item__content">${title}</div>
     `;
     
     item.addEventListener('dragstart', e => {

@@ -1,5 +1,3 @@
-// Node Modules
-import uuid from 'uuid/v4';
 // Components
 import Item from './components/Item';
 import List from './components/List';
@@ -21,27 +19,39 @@ listContainer.appendChild(List({ id: 'todo-list', title: 'Stuff Todo' }));
 listContainer.appendChild(List({ id: 'doing-list', title: "Stuff I'm Doing" }));
 listContainer.appendChild(List({ id: 'done-list', title: 'Stuff I Did'}));
 
-// Use localStorage for now
-const savedItems = JSON.parse(localStorage.getItem('items'));
-if (savedItems) {
-    const todoList = savedItems.map(({ itemText, index }) => ({
-        id: uuid(),
-        text: itemText,
-        index,
-        color: '#42526E'
-    }));
-    store.dispatch(setList('todo', todoList));
-}
+const boardId = '5bd28aec47a9d405447ba91f';
+fetch(`http://localhost:3000/boards/${boardId}`)
+    .then(res => { 
+        if (res.status === 200) return res.json() 
+        else throw new Error(res)
+    })
+    .then(({ todo, doing, done }) => {
+        store.dispatch(setList('todo', todo));
+        store.dispatch(setList('doing', doing));
+        store.dispatch(setList('done', done));
 
-const actualTodoList = document.querySelector('#todo-list');
-store.getState().lists.todo.forEach(item => {
-    actualTodoList.appendChild(Item(item));
-});
+        renderList('todo-list', { save: false })
+        renderList('doing-list', { save: false })
+        renderList('done-list', { save: false })
+    })
+    .catch(err => console.log(err));
 
-export function renderList(listId) {
+// Save to database and re-render list
+export function renderList(listId, options = { save: true }) {
+    const listKey = getListKey(listId);
+    // save
+    if (options.save) {
+        fetch(`http://localhost:3000/boards/${boardId}`, {
+            method: 'PUT', 
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ [listKey]: store.getState().lists[listKey] })
+        })
+            .catch(err => console.log(err));
+    }
+    // render
     const list = document.querySelector(`#${listId}`);
     list.innerHTML = null;
-    store.getState().lists[getListKey(listId)].forEach(item => {
+    store.getState().lists[listKey].forEach(item => {
         list.appendChild(Item({
             ...item,
             justDropped: item.id === store.getState().config.justDroppedId,
@@ -50,7 +60,6 @@ export function renderList(listId) {
 }
 
 // Popup modal for adding new items
-
 const addButtonEl = document.querySelector('.add-button');
 addButtonEl.addEventListener('click', () => {
     const modal = document.body.appendChild(AddItemModal());
