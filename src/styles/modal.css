@@ -43,3 +43,13 @@
     color: #A5ADBA;
     font-size: 20px;
 }
+
+.comments-container {
+    margin-top: 50px;
+}
+
+.comments-container__header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 20px;
+}

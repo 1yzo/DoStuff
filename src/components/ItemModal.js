@@ -29,13 +29,29 @@ const ItemModal = (item) => {
 
     const commentsContainerEl = document.createElement('div');
     commentsContainerEl.className = 'comments-container';
-    commentsContainerEl.innerHTML = '<div>Comments</div>'
+  
+    const commentsContainerHeaderEl = document.createElement('div');
+    commentsContainerHeaderEl.className = 'comments-container__header';
+    commentsContainerHeaderEl.innerHTML = '<div>Comments</div>'
+
+    const addCommentEl = document.createElement('i');
+    addCommentEl.className = 'fas fa-plus';
+    addCommentEl.style.cursor = 'pointer';
+    addCommentEl.addEventListener('click', () => handleAddCommentClick(item.id));
+    commentsContainerHeaderEl.appendChild(addCommentEl);
+
     item.comments.forEach(comment => commentsContainerEl.appendChild(Comment(comment)));
 
+    modal.appendChild(modalContent);
     modalContent.append(infoEl);
     modalContent.append(commentsContainerEl);
-    modal.appendChild(modalContent);
+    commentsContainerEl.appendChild(commentsContainerHeaderEl);
+
     return modal;
 };
+
+function handleAddCommentClick(itemId) {
+    console.log('hello');
+}
 
 export default ItemModal;
