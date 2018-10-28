@@ -2,7 +2,6 @@
 import uuid from 'uuid/v4';
 // Modules
 import { setJustDroppedId } from './config';
-import { resolve } from 'url';
 
 export const setList = (listKey, items) => ({
     type: 'SET_LIST',
@@ -34,6 +33,13 @@ const removeItem = (listKey, index) => ({
     type: 'REMOVE_ITEM',
     listKey,
     index
+});
+
+export const addComment = (listKey, itemId, comment) => ({
+    type: 'ADD_COMMENT',
+    listKey,
+    itemId,
+    comment
 });
 
 export const startUnshiftItem = (listKey, newItem) => dispatch => {

@@ -1,7 +1,7 @@
 const Comment = ({ text, date }) => {
     const commentEl = document.createElement('div');
     commentEl.className = 'comment';
-    comment.innerHTML = text;
+    commentEl.innerHTML = text;
     
     return commentEl;
 };

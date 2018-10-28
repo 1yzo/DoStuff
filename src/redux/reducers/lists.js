@@ -80,6 +80,22 @@ export default (state = defaultState, action) => {
                 }))
             };
         }
+        case 'ADD_COMMENT': {
+            const { listKey, itemId, comment } = action;
+            return {
+                ...state,
+                [listKey]: state[listKey].map(item => {
+                    if (itemId === item.id) {
+                        return {
+                            ...item,
+                            comments: [...item.comments, comment]
+                        };
+                    } else {
+                        return item;
+                    }
+                })
+            };
+        }   
         default:
             return state;
     }

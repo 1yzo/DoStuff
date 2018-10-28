@@ -3,9 +3,13 @@ import moment from 'moment';
 // Components
 import Comment from './Comment';
 // Modules
-import { fadeOut } from '../utils';
+import { store, renderList } from '../index';
+import { fadeOut, getListKey } from '../utils';
+import { addComment } from '../redux/actions/lists';
 
-const ItemModal = (item) => {
+const ItemModal = (props) => {
+    const { item } = props;
+
     const modal = document.createElement('div');
     modal.className = 'modal-mask';
     modal.addEventListener('click', e => e.target.className === 'modal-mask' && fadeOut(modal, 200));
@@ -37,21 +41,28 @@ const ItemModal = (item) => {
     const addCommentEl = document.createElement('i');
     addCommentEl.className = 'fas fa-plus';
     addCommentEl.style.cursor = 'pointer';
-    addCommentEl.addEventListener('click', () => handleAddCommentClick(item.id));
+    addCommentEl.addEventListener('click', () => handleAddCommentClick(props));
     commentsContainerHeaderEl.appendChild(addCommentEl);
-
+    commentsContainerEl.appendChild(commentsContainerHeaderEl);
+    // Render existing comments
     item.comments.forEach(comment => commentsContainerEl.appendChild(Comment(comment)));
 
     modal.appendChild(modalContent);
     modalContent.append(infoEl);
     modalContent.append(commentsContainerEl);
-    commentsContainerEl.appendChild(commentsContainerHeaderEl);
 
     return modal;
 };
 
-function handleAddCommentClick(itemId) {
-    console.log('hello');
+function handleAddCommentClick({ item: { id }, parentListId }) {
+    const tempComment = {
+        text: 'Helllooo',
+        date: 0
+    };
+    store.dispatch(addComment(getListKey(parentListId), id, tempComment));
+    // Add to currently open modal and renderList to save changes
+    document.querySelector('.comments-container').appendChild(Comment(tempComment));
+    renderList(parentListId);
 }
 
 export default ItemModal;

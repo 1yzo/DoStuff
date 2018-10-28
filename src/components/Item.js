@@ -5,7 +5,7 @@ import ItemModal from './ItemModal';
 // Modules
 import { store } from '../index';
 import { setDragSource } from '../redux/actions/config';
-import { fadeIn, fadeOut } from '../utils';
+import { fadeIn, fadeOut, getListKey } from '../utils';
 // Styles
 import '../styles/item.css';
 
@@ -35,7 +35,10 @@ const Item = (props) => {
 };
 
 function handleClick(e, props) {
-    const itemModalEl = ItemModal(props);
+    const itemModalEl = ItemModal({
+        item: props,
+        parentListId: e.target.parentElement.parentElement.id
+    });
     document.body.appendChild(itemModalEl);
     fadeIn(itemModalEl, 200);
 }
