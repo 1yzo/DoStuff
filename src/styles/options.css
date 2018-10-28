@@ -1,0 +1,12 @@
+#trash-option-container {
+    margin-right: 20px;
+}
+
+.option--trash {
+    display: none;
+    transition: color 200ms ease-in-out;
+}
+
+.option--trash--over {
+    color: #ff5630;
+}

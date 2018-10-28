@@ -1,8 +1,10 @@
 // Components
 import Divider from './Divider';
+import TrashTarget from './TrashTarget';
 // Modules
 import { store } from '../index';
 import { setDragSource } from '../redux/actions/config';
+import { fadeIn, fadeOut } from '../utils';
 // Styles
 import '../styles/item.css';
 
@@ -38,17 +40,17 @@ function handleDragStart(e, props) {
     e.dataTransfer.effectAllowed = 'move';
     e.dataTransfer.setData('text/json', JSON.stringify(props));
     // Show remove item option
-    const trashEl = document.createElement('div');
-    trashEl.id = 'trash-option';
-    trashEl.innerHTML = 'TRASH';
-    document.querySelector('#options-container').appendChild(trashEl);
+    const trashTargetEl = TrashTarget();
+    document.querySelector('#trash-option-container').appendChild(trashTargetEl);
+    fadeIn(trashTargetEl, 200);
 }
 
 function handleDragEnd(e) {
     e.target.classList.remove('item--over');
     store.dispatch(setDragSource(null));
     // Hide remove item option
-    document.querySelector('#trash-option').remove();
+    const trashTargetEl = document.querySelector('.option--trash');
+    fadeOut(trashTargetEl, 200);
 }
 
 function handleDrop(e) {
