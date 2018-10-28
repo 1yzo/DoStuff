@@ -1,5 +1,6 @@
 // Node Modules
 import uuid from 'uuid/v4';
+import moment from 'moment';
 // Components
 import ColorPickerSingle from './ColorPickerSingle';
 // Modules
@@ -11,23 +12,22 @@ const AddItemModal = () => {
     const modal = document.createElement('div');
     modal.id = 'add-modal';
     modal.className = 'modal-mask';
-    modal.addEventListener('click', e => {
-        if (e.target.className === 'modal-mask') {
-            fadeOut(modal, 200);
-        }
-    });
+    modal.addEventListener('click', e => e.target.className === 'modal-mask' && fadeOut(modal, 200));
+
 
     const modalContent = document.createElement('form');
     modalContent.className = 'modal-content';
     modalContent.addEventListener('submit', async e => {
         e.preventDefault();
+        // Consider moving this logic to the startUnshiftItem thunk
         if (addInput.value.trim()) {
             const newItem = {
                 id: uuid(),
                 title: addInput.value,
                 details: [],
                 color: store.getState().config.newItemColor,
-                comments: []
+                comments: [],
+                date: moment().valueOf()
             };
             await store.dispatch(startUnshiftItem('todo', newItem));
             fadeOut(modal, 200);
@@ -57,7 +57,6 @@ const AddItemModal = () => {
     modalContent.appendChild(addInput);
     modalContent.appendChild(colorPicker);
     modalContent.appendChild(createButton);
-
     modal.appendChild(modalContent);
     
     return modal;

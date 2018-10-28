@@ -39,16 +39,16 @@ fetch(`http://localhost:3000/boards/${boardId}`)
 // Save to database and re-render list
 export function renderList(listId, options = { save: true }) {
     const listKey = getListKey(listId);
-    // save
+    // Save
     if (options.save) {
         fetch(`http://localhost:3000/boards/${boardId}`, {
             method: 'PUT', 
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ [listKey]: store.getState().lists[listKey] })
         })
-            .catch(err => console.log(err));
+            .catch(err => console.log(err)); // Show a network error dialog if there's no internet connection
     }
-    // render
+    // Render
     const list = document.querySelector(`#${listId}`);
     list.innerHTML = null;
     store.getState().lists[listKey].forEach(item => {

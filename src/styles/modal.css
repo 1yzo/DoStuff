@@ -23,3 +23,18 @@
     align-items: center;
     justify-content: space-between;
 }
+
+.modal-content--uncentered {
+    display: block;
+    width: 700px;
+}
+
+.modal-content__title {
+    margin: 0;
+    word-wrap: break-word;
+}
+
+.modal-content__date {
+    color: #A5ADBA;
+    font-size: 20px;
+}

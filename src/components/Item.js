@@ -1,6 +1,7 @@
 // Components
 import Divider from './Divider';
 import TrashTarget from './TrashTarget';
+import ItemModal from './ItemModal';
 // Modules
 import { store } from '../index';
 import { setDragSource } from '../redux/actions/config';
@@ -21,11 +22,10 @@ const Item = (props) => {
         <div class="item__content">${title}</div>
     `;
     
-    item.addEventListener('dragstart', e => {
-        handleDragStart(e, props);   
-    });
+    item.addEventListener('dragstart', e => handleDragStart(e, props)); 
     item.addEventListener('dragend', handleDragEnd);
     item.addEventListener('drop', handleDrop);
+    item.addEventListener('click', e => handleClick(e, props));
 
     index === 0 && itemParentEl.appendChild(Divider({ index: 0 }));
     itemParentEl.appendChild(item);
@@ -33,6 +33,12 @@ const Item = (props) => {
 
     return itemParentEl;
 };
+
+function handleClick(e, props) {
+    const itemModalEl = ItemModal(props);
+    document.body.appendChild(itemModalEl);
+    fadeIn(itemModalEl, 200);
+}
 
 function handleDragStart(e, props) {
     e.target.classList.add('item--over');
