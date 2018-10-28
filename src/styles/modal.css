@@ -29,9 +29,14 @@
     width: 700px;
 }
 
+/* .modal-content__info {
+    padding-left: 10px;
+} */
+
 .modal-content__title {
     margin: 0;
     word-wrap: break-word;
+    margin-bottom: 7px;
 }
 
 .modal-content__date {
