@@ -33,6 +33,11 @@ header .container {
     margin-right: 30px;
 }
 
+#options-container {
+    display: flex;
+    align-items: center;
+}
+
 .add-button {
     cursor: pointer;
 }

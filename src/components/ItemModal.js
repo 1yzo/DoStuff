@@ -1,4 +1,4 @@
-const ItemModal = ({ itemProps }) => {
+const ItemModal = (item) => {
     const modal = document.createElement('div');
     modal.className = 'modal-mask';
 

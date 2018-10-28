@@ -37,11 +37,18 @@ function handleDragStart(e, props) {
     store.dispatch(setDragSource(e.target));
     e.dataTransfer.effectAllowed = 'move';
     e.dataTransfer.setData('text/json', JSON.stringify(props));
+    // Show remove item option
+    const trashEl = document.createElement('div');
+    trashEl.id = 'trash-option';
+    trashEl.innerHTML = 'TRASH';
+    document.querySelector('#options-container').appendChild(trashEl);
 }
 
 function handleDragEnd(e) {
     e.target.classList.remove('item--over');
     store.dispatch(setDragSource(null));
+    // Hide remove item option
+    document.querySelector('#trash-option').remove();
 }
 
 function handleDrop(e) {
