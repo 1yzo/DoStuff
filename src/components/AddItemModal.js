@@ -48,7 +48,7 @@ const AddItemModal = () => {
     colorPicker.appendChild(ColorPickerSingle('#FFAB00'));
     colorPicker.appendChild(ColorPickerSingle('#FF5630'));
     colorPicker.appendChild(ColorPickerSingle('#36B37E'));
-    colorPicker.appendChild(ColorPickerSingle('#0052CC'));
+    colorPicker.appendChild(ColorPickerSingle('#6078FF'));
 
     const createButton = document.createElement('button');
     createButton.className = 'create-button';

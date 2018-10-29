@@ -10,17 +10,37 @@ import { fadeIn, fadeOut, getListKey } from '../utils';
 import '../styles/item.css';
 
 const Item = (props) => {
-    const { title, index, justDropped, color } = props;
+    const { title, index, justDropped, color, comments } = props;
 
     const itemParentEl = document.createElement('div');
     const item = document.createElement('div');
     item.className = 'item';
     justDropped && item.classList.add('item--dropped');
     item.draggable = 'true';
-    item.innerHTML = `
-        <div class="item__header" style="background-color: ${color}"></div>
-        <div class="item__content">${title}</div>
-    `;
+
+    const headerEl = document.createElement('div');
+    headerEl.className = 'item__header';
+    headerEl.style.backgroundColor = color
+    item.appendChild(headerEl);
+
+    const contentEl = document.createElement('div');
+    contentEl.className = 'item__content';
+    contentEl.innerHTML = title;
+    item.appendChild(contentEl);
+    
+    const commentCount = document.createElement('div');
+    commentCount.className = 'item__comment-count';
+    const commentIcon = document.createElement('i');
+    const commentNumber = document.createElement('span');
+    commentNumber.innerHTML = comments.length;
+    commentIcon.className = 'fas fa-comment-alt item__comment-icon';
+    commentCount.appendChild(commentIcon);
+    commentCount.appendChild(commentNumber);
+    if (comments.length > 0) {
+        contentEl.appendChild(commentCount);
+    } else {
+        contentEl.style.paddingBottom = '20px';
+    }
     
     item.addEventListener('dragstart', e => handleDragStart(e, props)); 
     item.addEventListener('dragend', handleDragEnd);

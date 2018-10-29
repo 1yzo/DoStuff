@@ -17,7 +17,7 @@ const ItemModal = (props) => {
 
     const modalContent = document.createElement('div');
     modalContent.className = 'modal-content--details';
-    // modalContent.style.borderTop = `20px solid ${item.color}`
+    modalContent.style.borderTop = `20px solid ${item.color}`
 
     const infoEl = document.createElement('div');
     infoEl.className = 'modal-content__info';

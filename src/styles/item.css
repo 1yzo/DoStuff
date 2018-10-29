@@ -17,6 +17,18 @@
     box-shadow: 2px 1px 10px rgba(114, 119, 126, 0.329);
 }
 
+.item__comment-count {
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+    background-color: white;
+    padding: 10px 0 5px 0;
+}
+
+.item__comment-icon {
+    margin-right: 5px;
+}
+
 .item__header {
     height: 15px;
     border-top-left-radius: 5px;
@@ -24,7 +36,7 @@
 }
 
 .item__content {
-    padding: 20px;
+    padding: 20px 15px 0 15px;
     background: white;
     font-size: 20px;
     word-wrap: break-word;
