@@ -59,7 +59,7 @@
 .comments-container__header {
     display: flex;
     justify-content: space-between;
-    font-size: 20px;
+    font-size: 25px;
 }
 
 #comment-form {

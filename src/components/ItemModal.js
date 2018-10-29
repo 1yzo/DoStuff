@@ -46,7 +46,7 @@ const ItemModal = (props) => {
     commentsContainerHeaderEl.appendChild(addCommentEl);
     commentsContainerEl.appendChild(commentsContainerHeaderEl);
     // Render existing comments
-    item.comments.forEach(comment => commentsContainerEl.appendChild(Comment(comment)));
+    item.comments.forEach(comment => commentsContainerEl.appendChild(Comment({ ...comment, color: item.color })));
 
     modal.appendChild(modalContent);
     modalContent.append(infoEl);
@@ -55,7 +55,7 @@ const ItemModal = (props) => {
     return modal;
 };
 
-function handleAddCommentClick({ item: { id }, parentListId }) {
+function handleAddCommentClick({ item: { id, color }, parentListId }) {
     const formExists = !!document.querySelector('#comment-form');
     if (!formExists) {
         // Append a form and focus it
@@ -76,7 +76,7 @@ function handleAddCommentClick({ item: { id }, parentListId }) {
             };
             store.dispatch(startAddComment(getListKey(parentListId), id, comment));
             // Add to currently open modal and renderList to save changes
-            document.querySelector('.comments-container').appendChild(Comment(comment));
+            document.querySelector('.comments-container').appendChild(Comment({ ...comment, color }));
             renderList(parentListId);
             e.target.remove();
         });
