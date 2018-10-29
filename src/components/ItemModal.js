@@ -16,7 +16,7 @@ const ItemModal = (props) => {
     modal.addEventListener('click', e => e.target.className === 'modal-mask' && fadeOut(modal, 200));
 
     const modalContent = document.createElement('div');
-    modalContent.className = 'modal-content modal-content--uncentered';
+    modalContent.className = 'modal-content--details';
     // modalContent.style.borderTop = `20px solid ${item.color}`
 
     const infoEl = document.createElement('div');

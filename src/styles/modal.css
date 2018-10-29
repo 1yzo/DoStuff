@@ -7,11 +7,11 @@
     height: 100%;
     background-color: rgba(0, 0, 0, 0.205);
     overflow-y: auto;
+    padding-top: 15%;
 }
 
 .modal-content {
     position: absolute;
-    top: 20%;
     left: 50%;
     transform: translate(-50%, 0);
     background-color: white;
@@ -26,10 +26,15 @@
     justify-content: space-between;
 }
 
-.modal-content--uncentered {
-    display: block;
-    width: 700px;
-    overflow-x: hidden;
+.modal-content--details {
+	background-color: white;
+	width: 700px;
+	min-height: 350px;
+	padding: 30px;
+	border-radius: 5px;
+	box-shadow: 2px 1px 10px rgba(111, 111, 111, 0.6);
+	margin: 0 auto;
+	margin-bottom: 30px;
 }
 
 /* .modal-content__info {

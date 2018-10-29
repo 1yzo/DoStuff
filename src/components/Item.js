@@ -41,6 +41,7 @@ function handleClick(e, props) {
     });
     document.body.appendChild(itemModalEl);
     fadeIn(itemModalEl, 200);
+    itemModalEl.style.display = 'initial';
 }
 
 function handleDragStart(e, props) {
