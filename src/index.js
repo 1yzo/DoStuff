@@ -15,7 +15,7 @@ import './styles/inputs.css';
 export const store = configureStore();
 
 const listContainer = document.querySelector('#list-container');
-listContainer.appendChild(List({ id: 'todo-list', title: 'Stuff Todo' }));
+listContainer.appendChild(List({ id: 'todo-list', title: 'Stuff To-do' }));
 listContainer.appendChild(List({ id: 'doing-list', title: "Stuff I'm Doing" }));
 listContainer.appendChild(List({ id: 'done-list', title: 'Stuff I Did'}));
 

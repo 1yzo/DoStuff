@@ -69,4 +69,19 @@
 
 #comment-form textarea {
     resize: none;
+    border: none;
+    border: 2px solid;
+    border-radius: 3px;
+    margin: 20px 0 10px 0;
+    height: 90px;
+    padding: 10px;
+}
+
+#comment-form button {
+    max-width: 90px;
+    border: none;
+    color: white;
+    font-size: 15px;
+    padding: 5px;
+    border-radius: 3px;
 }

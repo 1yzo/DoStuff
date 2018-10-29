@@ -1,6 +1,5 @@
 // Node Modules
 import moment from 'moment';
-import Quill from 'quill';
 // Components
 import Comment from './Comment';
 // Modules
@@ -60,9 +59,11 @@ function handleAddCommentClick({ item: { id, color }, parentListId }) {
     if (!formExists) {
         // Append a form and focus it
         const commentForm = document.createElement('form');
-        commentForm.id = 'comment-form';
+        commentForm.id = 'comment-form';        
         const textArea = document.createElement('textarea');
+        textArea.style.borderColor = color;
         const submitButton = document.createElement('button');
+        submitButton.style.backgroundColor = color;
         submitButton.innerHTML = 'Submit';
         commentForm.appendChild(textArea);
         commentForm.appendChild(submitButton);
