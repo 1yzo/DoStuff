@@ -1,11 +1,12 @@
 // Node Modules
 import moment from 'moment';
+import Quill from 'quill';
 // Components
 import Comment from './Comment';
 // Modules
 import { store, renderList } from '../index';
 import { fadeOut, getListKey } from '../utils';
-import { addComment } from '../redux/actions/lists';
+import { startAddComment } from '../redux/actions/lists';
 
 const ItemModal = (props) => {
     const { item } = props;
@@ -55,14 +56,31 @@ const ItemModal = (props) => {
 };
 
 function handleAddCommentClick({ item: { id }, parentListId }) {
-    const tempComment = {
-        text: 'Helllooo',
-        date: 0
-    };
-    store.dispatch(addComment(getListKey(parentListId), id, tempComment));
-    // Add to currently open modal and renderList to save changes
-    document.querySelector('.comments-container').appendChild(Comment(tempComment));
-    renderList(parentListId);
+    const formExists = !!document.querySelector('#comment-form');
+    if (!formExists) {
+        // Append a form and focus it
+        const commentForm = document.createElement('form');
+        commentForm.id = 'comment-form';
+        const textArea = document.createElement('textarea');
+        const submitButton = document.createElement('button');
+        submitButton.innerHTML = 'Submit';
+        commentForm.appendChild(textArea);
+        commentForm.appendChild(submitButton);
+        document.querySelector('.comments-container').appendChild(commentForm);
+        textArea.focus();
+        commentForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const comment = {
+                text: textArea.value,
+                date: moment().valueOf()
+            };
+            store.dispatch(startAddComment(getListKey(parentListId), id, comment));
+            // Add to currently open modal and renderList to save changes
+            document.querySelector('.comments-container').appendChild(Comment(comment));
+            renderList(parentListId);
+            e.target.remove();
+        });
+    }
 }
 
 export default ItemModal;

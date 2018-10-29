@@ -35,7 +35,7 @@ const removeItem = (listKey, index) => ({
     index
 });
 
-export const addComment = (listKey, itemId, comment) => ({
+const addComment = (listKey, itemId, comment) => ({
     type: 'ADD_COMMENT',
     listKey,
     itemId,
@@ -80,3 +80,8 @@ export const startRemoveItem = (listKey, index) => dispatch => new Promise(resol
     dispatch(removeItem(listKey, index));
     resolve();
 });
+
+export const startAddComment = (listKey, itemId, comment) => dispatch => {
+    dispatch(setJustDroppedId(null));
+    dispatch(addComment(listKey, itemId, comment));
+};

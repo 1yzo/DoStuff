@@ -27,6 +27,8 @@
 .modal-content--uncentered {
     display: block;
     width: 700px;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 /* .modal-content__info {
@@ -52,4 +54,13 @@
     display: flex;
     justify-content: space-between;
     font-size: 20px;
+}
+
+#comment-form {
+    display: flex;
+    flex-direction: column;
+}
+
+#comment-form textarea {
+    resize: none;
 }
