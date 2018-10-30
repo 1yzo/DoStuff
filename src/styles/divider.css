@@ -1,9 +1,11 @@
 .divider {
     height: 15px;
     background: #eee;
-    transition: height 200ms ease-in-out;
+    /* transition: height 200ms ease-in-out; */
+    /* transition: transform 200ms ease-in-out; */
 }
 
 .divider--over {
     height: 80px;
+    /* transform: scale(1, 4); */
 }
