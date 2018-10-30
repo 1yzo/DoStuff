@@ -47,9 +47,10 @@ const ItemModal = (props) => {
     commentsContainerEl.appendChild(commentsContainerHeaderEl);
     // Render existing comments
     item.comments.forEach(comment => commentsContainerEl.appendChild(Comment({ ...comment, color: item.color })));
-    const blankStateEL = document.createElement('div');
-    blankStateEL.className = ''
-    item.comments.length === 0 && commentsContainerEl.appendChild()
+    const blankStateEl = document.createElement('div');
+    blankStateEl.className = 'comment-blank-state';
+    blankStateEl.innerHTML = "You haven't made any comments yet"
+    item.comments.length === 0 && commentsContainerEl.appendChild(blankStateEl);
 
     modal.appendChild(modalContent);
     modalContent.append(infoEl);
@@ -85,6 +86,9 @@ function handleAddCommentClick({ item: { id, color }, parentListId }) {
             document.querySelector('.comments-container').appendChild(Comment({ ...comment, color }));
             renderList(parentListId);
             e.target.remove();
+            // Remove blank state if it exists
+            const blankStateEl = document.querySelector('.comment-blank-state');
+            blankStateEl && blankStateEl.remove();
         });
     }
 }
