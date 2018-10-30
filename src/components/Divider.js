@@ -8,8 +8,6 @@ import '../styles/divider.css';
 
 // props.index represents what the new index of the dropped item should be
 const Divider = (props) => {
-    const { index } = props;
-
     const dividerEl = document.createElement('div');
     dividerEl.className = 'divider';
 
@@ -28,8 +26,10 @@ const Divider = (props) => {
 
 function handleDragOver(e, props) {
     e.preventDefault();
-
-    e.target.classList.add('divider--over');   
+    const { index } = JSON.parse(e.dataTransfer.getData('text/json'));
+    if (props.index !== index && props.index != index + 1) {
+        e.target.classList.add('divider--over');   
+    }
 }
 
 function handleDragLeave(e, props) {

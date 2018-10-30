@@ -23,6 +23,7 @@
     font-size: 15px;
     background-color: white;
     padding: 10px 0 5px 0;
+    color: rgba(59, 59, 59, 0.28); 
 }
 
 .item__comment-icon {

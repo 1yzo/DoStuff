@@ -75,13 +75,14 @@
     margin: 20px 0 10px 0;
     height: 90px;
     padding: 10px;
+    font-family: inherit;
 }
 
 #comment-form button {
     max-width: 90px;
     border: none;
     color: white;
-    font-size: 15px;
+    font-size: 16px;
     padding: 5px;
     border-radius: 3px;
 }

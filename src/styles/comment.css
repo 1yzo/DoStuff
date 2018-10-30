@@ -2,6 +2,7 @@
     margin-top: 20px;
     margin-left: 2px;
     padding-left: 7px;
+    animation: fadeIn 300ms ease-in-out 1;
 }
 .comment__date-container {
     display: flex;
@@ -14,10 +15,20 @@
     margin: 0;
     margin-bottom: 10px;
     word-wrap: break-word;
-    font-size: 17px
+    font-size: 17px;
+    white-space: pre-line;
 }
 
 .comment__date {
     color: #A5ADBA;
     font-size: 14px;    
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }
