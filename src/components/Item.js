@@ -4,8 +4,8 @@ import TrashTarget from './TrashTarget';
 import ItemModal from './ItemModal';
 // Modules
 import { store } from '../index';
-import { setDragSource } from '../redux/actions/config';
-import { fadeIn, fadeOut, getListKey } from '../utils';
+import { setDragSource, setJustDroppedId } from '../redux/actions/config';
+import { fadeIn, fadeOut } from '../utils';
 // Styles
 import '../styles/item.css';
 
@@ -65,6 +65,7 @@ function handleClick(e, props) {
 }
 
 function handleDragStart(e, props) {
+    store.dispatch(setJustDroppedId(null));
     e.target.classList.add('item--over');
     store.dispatch(setDragSource(e.target));
     e.dataTransfer.effectAllowed = 'move';

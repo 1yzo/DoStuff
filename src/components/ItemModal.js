@@ -33,7 +33,8 @@ const ItemModal = (props) => {
 
     const commentsContainerEl = document.createElement('div');
     commentsContainerEl.className = 'comments-container';
-  
+
+    
     const commentsContainerHeaderEl = document.createElement('div');
     commentsContainerHeaderEl.className = 'comments-container__header';
     commentsContainerHeaderEl.innerHTML = '<div>Comments</div>'
@@ -46,6 +47,9 @@ const ItemModal = (props) => {
     commentsContainerEl.appendChild(commentsContainerHeaderEl);
     // Render existing comments
     item.comments.forEach(comment => commentsContainerEl.appendChild(Comment({ ...comment, color: item.color })));
+    const blankStateEL = document.createElement('div');
+    blankStateEL.className = ''
+    item.comments.length === 0 && commentsContainerEl.appendChild()
 
     modal.appendChild(modalContent);
     modalContent.append(infoEl);
@@ -69,6 +73,7 @@ function handleAddCommentClick({ item: { id, color }, parentListId }) {
         commentForm.appendChild(submitButton);
         document.querySelector('.comments-container').appendChild(commentForm);
         textArea.focus();
+        textArea.scrollIntoView();
         commentForm.addEventListener('submit', (e) => {
             e.preventDefault();
             const comment = {
