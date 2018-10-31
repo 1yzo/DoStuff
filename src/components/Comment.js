@@ -1,5 +1,7 @@
 // Node Modules
 import moment from 'moment';
+// Modules
+import { findAndReplaceLinks } from '../utils';
 // Styles
 import '../styles/comment.css';
 
@@ -10,7 +12,7 @@ const Comment = ({ text, date, color }) => {
 
     const textEl = document.createElement('p');
     textEl.className = 'comment__text';
-    textEl.innerHTML = text;
+    textEl.innerHTML = findAndReplaceLinks(text);
     commentEl.appendChild(textEl);
     
     const dateContainerEl = document.createElement('div');

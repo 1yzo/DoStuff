@@ -5,7 +5,7 @@ import ItemModal from './ItemModal';
 // Modules
 import { store } from '../index';
 import { setDragSource, setJustDroppedId } from '../redux/actions/config';
-import { fadeIn, fadeOut } from '../utils';
+import { fadeIn, fadeOut, findAndReplaceLinks } from '../utils';
 // Styles
 import '../styles/item.css';
 
@@ -25,7 +25,7 @@ const Item = (props) => {
 
     const contentEl = document.createElement('div');
     contentEl.className = 'item__content';
-    contentEl.innerHTML = title;
+    contentEl.innerHTML = findAndReplaceLinks(title);
     item.appendChild(contentEl);
     
     const commentCount = document.createElement('div');

@@ -4,7 +4,7 @@ import moment from 'moment';
 import Comment from './Comment';
 // Modules
 import { store, renderList } from '../index';
-import { fadeOut, getListKey } from '../utils';
+import { fadeOut, getListKey, findAndReplaceLinks } from '../utils';
 import { startAddComment } from '../redux/actions/lists';
 
 const ItemModal = (props) => {
@@ -23,7 +23,7 @@ const ItemModal = (props) => {
     
     const titleEl = document.createElement('h1');
     titleEl.className = 'modal-content__title';
-    titleEl.innerHTML = item.title;
+    titleEl.innerHTML = findAndReplaceLinks(item.title);
     infoEl.appendChild(titleEl);
 
     const dateEl = document.createElement('div');
