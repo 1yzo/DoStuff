@@ -3,7 +3,7 @@ import Item from './components/Item';
 import List from './components/List';
 import AddItemModal from './components/AddItemModal';
 // Modules
-import { getListKey, fadeIn } from './utils';
+import { getListKey, fadeIn, fadeOut } from './utils';
 import configureStore from './redux/configureStore';
 import { setList } from './redux/actions/lists';
 // Styles
@@ -66,4 +66,13 @@ addButtonEl.addEventListener('click', () => {
     fadeIn(modal, 200);
     document.querySelector('#add-input').focus();
     document.querySelectorAll('.color-picker')[0].click();
+});
+
+
+// Close any open modal on ESC key press
+window.addEventListener('keypress', (e) => {
+    if (e.keyCode === 27) {
+        const modal = document.querySelector('.modal-mask');
+        modal && fadeOut(modal, 200);
+    }
 });

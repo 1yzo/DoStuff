@@ -14,7 +14,13 @@ button {
     cursor: pointer;
 }
 
+a {
+    color: rgba(0,0,0,.84);
+    font-weight: bold;
+}
+
 .container {
     max-width: 1300px;
     margin: 0 auto;
 }
+

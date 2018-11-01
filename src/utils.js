@@ -27,7 +27,6 @@ export const fadeOut = (element, duration) => {
 export const findAndReplaceLinks = text => {
     const exp = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
     return text.split(' ').map(word => {
-        console.log('checking', word)
         return word.replace(exp, match => {
             const href = match.includes('htt') ? match : `http://${match}`;
             return `<a href="${href}" target="_blank">${match}</a>`

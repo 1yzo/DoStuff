@@ -16,7 +16,7 @@
     margin-bottom: 10px;
     word-wrap: break-word;
     font-size: 17px;
-    white-space: pre-line;
+    /* white-space: pre-line; */
 }
 
 .comment__date {
