@@ -25,12 +25,26 @@ export const fadeOut = (element, duration) => {
 };
 
 export const findAndReplaceLinks = text => {
-    const exp = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
+    const exp = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-=?]*)*\/?$/;
     return text.split(' ').map(word => {
         return word.replace(exp, match => {
             const href = match.includes('htt') ? match : `http://${match}`;
             return `<a href="${href}" target="_blank">${match}</a>`
         });
     }).join(' ');
-    
+};
+
+export const getLinkPreview = async text => {
+    const exp = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-=?]*)*\/?$/;
+    const links = text.split(' ').filter(word => exp.test(word));
+    if (links.length) {
+        const link = links[0].includes('htt') ? links[0] : `http://${links[0]}`;
+        try {
+            const res = await fetch(`http://localhost:3000/api/link_preview/?link=${link}`, { method: 'POST' });
+            const payload = await res.json();
+            if (Object.keys(payload).length) return payload ;
+        } catch (e) {
+            console.log(e);
+        }
+    }
 };
