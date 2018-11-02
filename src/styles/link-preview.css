@@ -8,9 +8,9 @@
 }
 
 .link-preview__image {
-    width: 85px;
+    width: 90px;
     height: 85px;
-    margin-right: 3px;
+    margin-right: 10px;
 }
 
 .link-preview__info {
