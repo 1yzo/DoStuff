@@ -1,0 +1,28 @@
+.link-preview {
+    display: flex;
+    font-size: 17px;
+    margin-top: 20px;
+    background: #eee;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.link-preview__image {
+    width: 85px;
+    height: 85px;
+    margin-right: 3px;
+}
+
+.link-preview__info {
+    display: flex;
+    flex-direction:  column;
+    justify-content: space-between;
+}
+
+.link-preview__title {
+    font-weight: bold;
+}
+
+.link-preview__description {
+    line-height: 1.1em;
+}

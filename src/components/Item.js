@@ -5,9 +5,10 @@ import ItemModal from './ItemModal';
 // Modules
 import { store } from '../index';
 import { setDragSource, setJustDroppedId } from '../redux/actions/config';
-import { fadeIn, fadeOut, findAndReplaceLinks, getLinkPreview } from '../utils';
+import { fadeIn, fadeOut, findAndReplaceLinks, getLinkPreview, shortenText } from '../utils';
 // Styles
 import '../styles/item.css';
+import '../styles/link-preview.css';
 
 const Item = (props) => {
     const { title, index, justDropped, color, comments } = props;
@@ -26,11 +27,13 @@ const Item = (props) => {
     const contentEl = document.createElement('div');
     contentEl.className = 'item__content';
     contentEl.innerHTML = findAndReplaceLinks(title);
-    getLinkPreview(title).then(linkPreview => {
-        console.log(linkPreview);
-    });
     item.appendChild(contentEl);
-    
+
+    const linkPreviewContainer = document.createElement('div');
+    contentEl.appendChild(linkPreviewContainer);
+
+    renderLinkPreview(linkPreviewContainer, title);
+
     const commentCount = document.createElement('div');
     commentCount.className = 'item__comment-count';
     const commentIcon = document.createElement('i');
@@ -44,7 +47,7 @@ const Item = (props) => {
     } else {
         contentEl.style.paddingBottom = '20px';
     }
-    
+
     item.addEventListener('dragstart', e => handleDragStart(e, props)); 
     item.addEventListener('dragend', handleDragEnd);
     item.addEventListener('drop', handleDrop);
@@ -92,5 +95,40 @@ function handleDrop(e) {
     e.target.classList.remove('item--over');
 }
 
+async function renderLinkPreview(containerEl, text) {
+    const linkPreview = await getLinkPreview(text);
+    if (linkPreview) {
+        const previewEl = document.createElement('div');
+        previewEl.className = 'link-preview';
+        if (linkPreview['og:image']) {
+            const imageEl = document.createElement('img');
+            imageEl.className = 'link-preview__image';
+            imageEl.src = linkPreview['og:image'];
+            previewEl.appendChild(imageEl);
+        }
+        const previewInfoEl = document.createElement('div');
+        previewInfoEl.className = 'link-preview__info';
+        if (linkPreview['og:title']) {
+            const titleEl = document.createElement('div');
+            titleEl.className = 'link-preview__title';
+            titleEl.innerHTML = shortenText(linkPreview['og:title'], 23);
+            previewInfoEl.appendChild(titleEl);
+        }
+        if (linkPreview['og:description']) {
+            const descriptionEl = document.createElement('div');
+            descriptionEl.className = 'link-preview__description';
+            descriptionEl.innerHTML = shortenText(linkPreview['og:description'], 70);
+            previewInfoEl.appendChild(descriptionEl);
+        }
+        // if (linkPreview['og:url']) {
+        //     const urlEl = document.createElement('div');
+        //     urlEl.className = 'link-preview__url';
+        //     urlEl.innerHTML = linkPreview['og:url'];
+        //     previewInfoEl.appendChild(urlEl);
+        // }
+        previewEl.appendChild(previewInfoEl);
+        containerEl.appendChild(previewEl);
+    }
+}
 
 export default Item;
