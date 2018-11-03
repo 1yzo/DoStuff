@@ -5,6 +5,7 @@ import ItemModal from './ItemModal';
 // Modules
 import { store } from '../index';
 import { setDragSource, setJustDroppedId } from '../redux/actions/config';
+import { editItem } from '../redux/actions/lists';
 import { fadeIn, fadeOut, findAndReplaceLinks, getLinkPreview, shortenText } from '../utils';
 // Styles
 import '../styles/item.css';
@@ -32,7 +33,8 @@ const Item = (props) => {
     const linkPreviewContainer = document.createElement('div');
     contentEl.appendChild(linkPreviewContainer);
 
-    renderLinkPreview(linkPreviewContainer, title);
+
+    renderLinkPreview(linkPreviewContainer, props);
 
     const commentCount = document.createElement('div');
     commentCount.className = 'item__comment-count';
@@ -95,8 +97,15 @@ function handleDrop(e) {
     e.target.classList.remove('item--over');
 }
 
-async function renderLinkPreview(containerEl, text) {
-    const linkPreview = await getLinkPreview(text);
+async function renderLinkPreview(containerEl, props) {
+    const linkPreview = props.linkPreview || await getLinkPreview(props.title);
+    // let linkPreview;
+    // if (props.linkPreview) {
+    //     linkPreview = props.linkPreview;
+    // } else {
+    //     linkPreview = await getLinkPreview(props.title);
+    //     store.dispatch(editItem())
+    // }
     if (linkPreview) {
         const previewEl = document.createElement('div');
         previewEl.className = 'link-preview';

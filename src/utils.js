@@ -42,15 +42,29 @@ export const getLinkPreview = async text => {
         try {
             const res = await fetch(`http://localhost:3000/api/link_preview/?link=${link}`, { method: 'POST' });
             const payload = await res.json();
-            if (Object.keys(payload).length) return payload ;
+            if (Object.keys(payload).length) return payload;
         } catch (e) {
             console.log(e);
         }
     }
 };
 
+export const mapLinkPreviews = list => {
+    const getItemWithPreview = (item) => new Promise(resolve => {
+        getLinkPreview(item.title).then((preview) => {
+            resolve({
+                ...item,
+                linkPreview: preview
+            });
+        })
+    })
+    const promises = list.map(item => getItemWithPreview(item));
+    return Promise.all(promises);
+}
+
 export const shortenText = (text, limit) => {
     if (text.length > limit) {
         return text.slice(0, limit) + '...';
     } else return text;
 }
+

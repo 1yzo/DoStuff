@@ -3,7 +3,7 @@ import Item from './components/Item';
 import List from './components/List';
 import AddItemModal from './components/AddItemModal';
 // Modules
-import { getListKey, fadeIn, fadeOut } from './utils';
+import { getListKey, fadeIn, fadeOut, mapLinkPreviews } from './utils';
 import configureStore from './redux/configureStore';
 import { setList } from './redux/actions/lists';
 // Styles
@@ -23,16 +23,21 @@ const boardId = '5bd28aec47a9d405447ba91f';
 fetch(`http://localhost:3000/boards/${boardId}`)
     .then(res => { 
         if (res.status === 200) return res.json() 
-        else throw new Error(res)
+        else throw new Error('Something went wrong.')
     })
     .then(({ todo, doing, done }) => {
-        store.dispatch(setList('todo', todo));
-        store.dispatch(setList('doing', doing));
-        store.dispatch(setList('done', done));
-
-        renderList('todo-list', { save: false })
-        renderList('doing-list', { save: false })
-        renderList('done-list', { save: false })
+       mapLinkPreviews(todo).then(items => {
+           store.dispatch(setList('todo', items));
+           renderList('todo-list', { save: false });
+       });
+       mapLinkPreviews(doing).then(items => {
+           store.dispatch(setList('doing', items));
+           renderList('doing-list', { save: false });
+       });
+       mapLinkPreviews(done).then(items => {
+           store.dispatch(setList('done', items));
+           renderList('done-list', { save: false });
+       })
     })
     .catch(err => console.log(err));
 
@@ -44,7 +49,9 @@ export function renderList(listId, options = { save: true }) {
         fetch(`http://localhost:3000/boards/${boardId}`, {
             method: 'PUT', 
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ [listKey]: store.getState().lists[listKey] })
+            body: JSON.stringify({
+                [listKey]: store.getState().lists[listKey].map(({ linkPreview, ...rest }) => ({ ...rest }))
+            })
         })
             .catch(err => console.log(err)); // Show a network error dialog if there's no internet connection
     }

@@ -42,6 +42,13 @@ const addComment = (listKey, itemId, comment) => ({
     comment
 });
 
+export const editItem = (listKey, itemId, edits) => ({
+    type: 'EDIT_ITEM',
+    listKey,
+    itemId,
+    edits
+});
+
 export const startUnshiftItem = (listKey, newItem) => dispatch => {
     return new Promise(resolve => {
         dispatch(setJustDroppedId(newItem.id));
