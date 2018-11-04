@@ -98,14 +98,17 @@ function handleDrop(e) {
 }
 
 async function renderLinkPreview(containerEl, props) {
-    const linkPreview = props.linkPreview || await getLinkPreview(props.title);
-    // let linkPreview;
-    // if (props.linkPreview) {
-    //     linkPreview = props.linkPreview;
-    // } else {
-    //     linkPreview = await getLinkPreview(props.title);
-    //     store.dispatch(editItem())
-    // }
+    let linkPreview;
+    if (props.linkPreview) {
+        linkPreview = props.linkPreview;
+    } else {
+        try {
+            linkPreview = await getLinkPreview(props.title);
+            store.dispatch(editItem(props.id, { linkPreview }));
+        } catch (e) {
+            return;
+        }
+    }
     if (linkPreview) {
         const previewEl = document.createElement('div');
         previewEl.className = 'link-preview';

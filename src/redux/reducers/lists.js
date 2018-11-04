@@ -97,19 +97,22 @@ export default (state = defaultState, action) => {
             };
         }
         case 'EDIT_ITEM': {
-            const { listKey, itemId, edits } = action;
-            return {
-                ...state,
-                [listKey]: state[listKey].map(item => {
-                    if (itemId === item.id) {
+            const { itemId, edits } = action;
+            for (let key in state) {
+                for (let item of state[key]) {
+                    if (item.id === itemId) {
                         return {
-                            ...item,
-                            ...edits
-                        };
-                    } else {
-                        return item;
+                            ...state,
+                            [key]: state[key].map(item => {
+                                if (item.id === itemId) {
+                                    return { ...item, ...edits };
+                                } else {
+                                    return item;
+                                }
+                            })
+                        }
                     }
-                })
+                }
             }
         }   
         default:

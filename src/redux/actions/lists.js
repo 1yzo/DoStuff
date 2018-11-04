@@ -42,9 +42,8 @@ const addComment = (listKey, itemId, comment) => ({
     comment
 });
 
-export const editItem = (listKey, itemId, edits) => ({
+export const editItem = (itemId, edits) => ({
     type: 'EDIT_ITEM',
-    listKey,
     itemId,
     edits
 });
