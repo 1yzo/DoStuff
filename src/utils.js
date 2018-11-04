@@ -49,6 +49,7 @@ export const getLinkPreview = async text => {
     }
 };
 
+// todo - rename this function
 export const mapLinkPreviews = list => {
     const getItemWithPreview = (item) => new Promise(resolve => {
         getLinkPreview(item.title).then((preview) => {

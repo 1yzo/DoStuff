@@ -32,8 +32,6 @@ const Item = (props) => {
 
     const linkPreviewContainer = document.createElement('div');
     contentEl.appendChild(linkPreviewContainer);
-
-
     renderLinkPreview(linkPreviewContainer, props);
 
     const commentCount = document.createElement('div');
