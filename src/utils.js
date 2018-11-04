@@ -68,3 +68,12 @@ export const shortenText = (text, limit) => {
     } else return text;
 }
 
+export const getItem = (lists, itemId) => {
+    for (let key in lists) {
+        for (let item of lists[key]) {
+            if (item.id === itemId) {
+                return item;
+            }
+        }
+    }
+}

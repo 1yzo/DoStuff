@@ -6,7 +6,7 @@ import ItemModal from './ItemModal';
 import { store } from '../index';
 import { setDragSource, setJustDroppedId } from '../redux/actions/config';
 import { editItem } from '../redux/actions/lists';
-import { fadeIn, fadeOut, findAndReplaceLinks, getLinkPreview, shortenText } from '../utils';
+import { fadeIn, fadeOut, findAndReplaceLinks, getLinkPreview, shortenText, getItem } from '../utils';
 // Styles
 import '../styles/item.css';
 import '../styles/link-preview.css';
@@ -77,7 +77,9 @@ function handleDragStart(e, props) {
     e.target.classList.add('item--over');
     store.dispatch(setDragSource(e.target));
     e.dataTransfer.effectAllowed = 'move';
-    e.dataTransfer.setData('text/json', JSON.stringify(props));
+    // Get item from store in case it was updated without a call to renderList()
+    const item = getItem(store.getState().lists, props.id);
+    e.dataTransfer.setData('text/json', JSON.stringify(item));
     // Show remove item option
     const trashTargetEl = TrashTarget();
     document.querySelector('#trash-option-container').appendChild(trashTargetEl);
