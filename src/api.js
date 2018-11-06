@@ -9,7 +9,7 @@ export const createBoard = async () => {
 };
 
 export const loadBoard = (currentBoard) => {
-    fetch(`http://localhost:3000/boards/${currentBoard}`)
+    return fetch(`http://localhost:3000/boards/${currentBoard}`)
         .then(res => { 
             if (res.status === 200) return res.json() 
             else throw new Error('Something went wrong.')
@@ -28,5 +28,4 @@ export const loadBoard = (currentBoard) => {
                 renderList('done-list', { save: false });
             })
         })
-        .catch(err => console.log(err));
 }

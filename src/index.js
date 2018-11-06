@@ -20,7 +20,7 @@ listContainer.appendChild(List({ id: 'doing-list', title: "Stuff I'm Doing" }));
 listContainer.appendChild(List({ id: 'done-list', title: 'Stuff I Did'}));
 
 // If an id is in the url try to laod that board, otherwise create a new one.
-let currentBoard;
+let currentBoard; 
 (async function initialize() {
     const boardFromUrl = window.location.pathname.slice(1);
 
@@ -30,8 +30,14 @@ let currentBoard;
         currentBoard = await createBoard();
     }
 
+    try {
+        await loadBoard(currentBoard);
+    } catch (e) {
+        currentBoard = await createBoard();
+        await loadBoard(currentBoard);
+    }
+
     window.history.pushState({}, '', currentBoard);
-    loadBoard(currentBoard);
 })()
 
 // Save to database and re-render list
