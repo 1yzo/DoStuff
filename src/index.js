@@ -3,9 +3,9 @@ import Item from './components/Item';
 import List from './components/List';
 import AddItemModal from './components/AddItemModal';
 // Modules
-import { getListKey, fadeIn, fadeOut, mapLinkPreviews } from './utils';
+import { getListKey, fadeIn, fadeOut } from './utils';
 import configureStore from './redux/configureStore';
-import { setList } from './redux/actions/lists';
+import { createBoard, loadBoard } from './api';
 // Styles
 import './styles/base.css';
 import './styles/header.css';
@@ -19,34 +19,27 @@ listContainer.appendChild(List({ id: 'todo-list', title: 'Stuff To-do' }));
 listContainer.appendChild(List({ id: 'doing-list', title: "Stuff I'm Doing" }));
 listContainer.appendChild(List({ id: 'done-list', title: 'Stuff I Did'}));
 
-const boardId = '5bd28aec47a9d405447ba91f';
-fetch(`http://localhost:3000/boards/${boardId}`)
-    .then(res => { 
-        if (res.status === 200) return res.json() 
-        else throw new Error('Something went wrong.')
-    })
-    .then(({ todo, doing, done }) => {
-       mapLinkPreviews(todo).then(items => {
-           store.dispatch(setList('todo', items));
-           renderList('todo-list', { save: false });
-       });
-       mapLinkPreviews(doing).then(items => {
-           store.dispatch(setList('doing', items));
-           renderList('doing-list', { save: false });
-       });
-       mapLinkPreviews(done).then(items => {
-           store.dispatch(setList('done', items));
-           renderList('done-list', { save: false });
-       })
-    })
-    .catch(err => console.log(err));
+// If an id is in the url try to laod that board, otherwise create a new one.
+let currentBoard;
+(async function initialize() {
+    const boardFromUrl = window.location.pathname.slice(1);
+
+    if (boardFromUrl) {
+        currentBoard = boardFromUrl;
+    } else {
+        currentBoard = await createBoard();
+    }
+
+    window.history.pushState({}, '', currentBoard);
+    loadBoard(currentBoard);
+})()
 
 // Save to database and re-render list
 export function renderList(listId, options = { save: true }) {
     const listKey = getListKey(listId);
     // Save
     if (options.save) {
-        fetch(`http://localhost:3000/boards/${boardId}`, {
+        fetch(`http://localhost:3000/boards/${currentBoard}`, {
             method: 'PUT', 
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
