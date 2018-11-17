@@ -4,7 +4,7 @@ import TrashTarget from './TrashTarget';
 import ItemModal from './ItemModal';
 // Modules
 import { store } from '../index';
-import { setDragSource, setJustDroppedId } from '../redux/actions/config';
+import { setDragSource, setJustDroppedId, setDragSourceIndex } from '../redux/actions/config';
 import { editItem } from '../redux/actions/lists';
 import { fadeIn, fadeOut, findAndReplaceLinks, getLinkPreview, shortenText, getItem } from '../utils';
 // Styles
@@ -74,6 +74,7 @@ function handleDragStart(e, props) {
     store.dispatch(setJustDroppedId(null));
     e.target.classList.add('item--over');
     store.dispatch(setDragSource(e.target));
+    store.dispatch(setDragSourceIndex(props.index));
     e.dataTransfer.effectAllowed = 'move';
     // Get item from store in case it was updated without a call to renderList()
     const item = getItem(store.getState().lists, props.id);

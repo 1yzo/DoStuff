@@ -1,5 +1,6 @@
 const defaultState = {
-    dragSource: null,
+    dragSource: null,       // The html element
+    dragSourceIndex: null,
     justDroppedId: null,
     newItemColor: null
 };
@@ -10,6 +11,11 @@ export default (state = defaultState, action) => {
             return {
                 ...state,
                 dragSource: action.dragSource
+            };
+        case 'SET_DRAG_SOURCE_INDEX':
+            return {
+                ...state,
+                dragSourceIndex: action.index
             };
         case 'SET_JUST_DROPPED_ID':
             return {

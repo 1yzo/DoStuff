@@ -3,6 +3,11 @@ export const setDragSource = (dragSourceEl) => ({
     dragSource: dragSourceEl
 });
 
+export const setDragSourceIndex = index => ({
+    type: 'SET_DRAG_SOURCE_INDEX',
+    index
+});
+
 export const setJustDroppedId = (itemId) => ({
     type: 'SET_JUST_DROPPED_ID',
     itemId

@@ -26,7 +26,7 @@ const Divider = (props) => {
 
 function handleDragOver(e, props) {
     e.preventDefault();
-    const { index } = JSON.parse(e.dataTransfer.getData('text/json'));
+    const index = store.getState().config.dragSourceIndex;
     // If item is coming from same list, make sure it's not an adjacent divider before expanding the divider
     if (store.getState().config.dragSource.parentElement.parentElement === e.target.parentElement.parentElement) {
         if (props.index !== index && props.index != index + 1) {
