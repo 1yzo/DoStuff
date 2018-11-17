@@ -56,7 +56,7 @@ export function renderList(listId, options = { save: true }) {
     }
     // Render
     const list = document.querySelector(`#${listId}`);
-    list.innerHTML = null;
+    list.innerHTML = '';
     store.getState().lists[listKey].forEach(item => {
         list.appendChild(Item({
             ...item,
