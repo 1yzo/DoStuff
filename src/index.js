@@ -45,7 +45,7 @@ export function renderList(listId, options = { save: true }) {
     const listKey = getListKey(listId);
     // Save
     if (options.save) {
-        fetch(`http://localhost:3000/boards/${currentBoard}`, {
+        fetch(`http://ec2-107-22-155-164.compute-1.amazonaws.com/boards/${currentBoard}`, {
             method: 'PUT', 
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
