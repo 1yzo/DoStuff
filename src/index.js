@@ -13,6 +13,7 @@ import './styles/base.css';
 import './styles/header.css';
 import './styles/modal.css';
 import './styles/inputs.css';
+import { setJustDroppedId } from './redux/actions/config';
 
 export const store = configureStore();
 let socket;
@@ -45,8 +46,9 @@ let currentBoard;
     socket.on('connect', () => {
         socket.emit('new user', currentBoard);
     });
-    socket.on('update', (senderId) => {
-        if (senderId !== socket.id) {
+    socket.on('update', (message) => {
+        if (message.senderId !== socket.id) {
+            store.dispatch(setJustDroppedId(message.justDroppedId));
             loadBoard(currentBoard).then(() => publish());
         }
     });
@@ -72,7 +74,7 @@ export function renderList(listId, options = { save: true }) {
                 [listKey]: store.getState().lists[listKey].map(({ linkPreview, ...rest }) => ({ ...rest }))
             })
         })
-            .then(() => socket.emit('update'))
+            .then(() => socket.emit('update', store.getState().config.justDroppedId))
             .catch(err => console.log(err)); // Show a network error dialog if there's no internet connection
     } 
     // Render

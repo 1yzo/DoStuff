@@ -105,7 +105,6 @@ function handleAddCommentClick({ item: { id, color }, parentListId }) {
 function renderComments(containerEl, item) {
     containerEl.innerHTML = '';
     item.comments
-        .sort((a, b) => a.date < b.date ? -1 : 1)
         .forEach(comment => containerEl.appendChild(Comment({ ...comment, color: item.color })));
 }
 
