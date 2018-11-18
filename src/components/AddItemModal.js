@@ -4,7 +4,7 @@ import moment from 'moment';
 // Components
 import ColorPickerSingle from './ColorPickerSingle';
 // Modules
-import { store, renderList } from '../index';
+import { store, renderList, emit } from '../index';
 import { startUnshiftItem } from '../redux/actions/lists';
 import { fadeOut } from '../utils';
 
@@ -32,7 +32,8 @@ const AddItemModal = () => {
             await store.dispatch(startUnshiftItem('todo', newItem));
             fadeOut(modal, 200);
             addInput.value = '';
-            renderList('todo-list');
+            renderList('todo-list')
+                .then(() => emit('update', store.getState().config.justDroppedId));
         }
     });
 

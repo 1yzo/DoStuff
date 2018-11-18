@@ -1,5 +1,5 @@
 // Modules
-import { store } from '../index';
+import { store, emit } from '../index';
 import { startRemoveItem } from '../redux/actions/lists';
 import { getListKey } from '../utils';
 import { renderList } from '../index';
@@ -34,7 +34,8 @@ async function handleDrop(e) {
     const sourceListId = store.getState().config.dragSource.parentElement.parentElement.id;
 
     await store.dispatch(startRemoveItem(getListKey(sourceListId), droppedItem.index));
-    renderList(sourceListId);
+    renderList(sourceListId)
+        .then(() => emit('update'));
 }
 
 export default TrashTarget;

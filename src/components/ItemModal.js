@@ -3,7 +3,7 @@ import moment from 'moment';
 // Components
 import Comment from './Comment';
 // Modules
-import { store, renderList, subscribeToRenderList } from '../index';
+import { store, renderList, subscribeToRenderList, emit } from '../index';
 import { fadeOut, getListKey, findAndReplaceLinks, getItem } from '../utils';
 import { startAddComment } from '../redux/actions/lists';
 
@@ -93,7 +93,8 @@ function handleAddCommentClick({ item: { id, color }, parentListId }) {
             store.dispatch(startAddComment(getListKey(parentListId), id, comment));
             // Add to currently open modal and renderList to save changes
             document.querySelector('.comments-container-actual').appendChild(Comment({ ...comment, color }));
-            renderList(parentListId);
+            renderList(parentListId)
+                .then(() => emit('update'));
             e.target.remove();
             // Remove blank state if it exists
             const blankStateEl = document.querySelector('.comment-blank-state');

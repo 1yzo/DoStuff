@@ -1,5 +1,5 @@
 // Modules
-import { store, renderList } from '../index';
+import { store, renderList, emit } from '../index';
 import { getListKey } from '../utils';
 import { startRemoveItem, startPushItem } from '../redux/actions/lists';
 // Styles
@@ -42,8 +42,9 @@ async function handleDrop(e) {
     await store.dispatch(startRemoveItem(getListKey(sourceParentListId), itemProps.index));
     await store.dispatch(startPushItem(getListKey(destParentListId), itemProps));
     // Re-render the involved lists
-    renderList(sourceParentListId);
-    renderList(destParentListId);
+    await renderList(sourceParentListId);
+    await renderList(destParentListId)
+    emit('update', store.getState().config.justDroppedId);
 };
 
 export default List;

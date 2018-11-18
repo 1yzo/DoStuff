@@ -1,5 +1,5 @@
 // Modules
-import { store, renderList } from '../index';
+import { store, renderList, emit } from '../index';
 import { getListKey } from '../utils';
 import { startInsertItem } from '../redux/actions/lists';
 // Styles
@@ -54,7 +54,8 @@ async function handleDrop(e, props) {
     if (sourceParentListId !== destParentListId) {
         renderList(sourceParentListId);
     }
-    renderList(destParentListId);
+    renderList(destParentListId)
+        .then(() => emit('update', store.getState().config.justDroppedId));
 }  
 
 export default Divider;
