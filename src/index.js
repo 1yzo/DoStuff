@@ -47,11 +47,18 @@ let currentBoard;
     });
     socket.on('update', (senderId) => {
         if (senderId !== socket.id) {
-            console.log('attempting to update')
-            loadBoard(currentBoard);
+            loadBoard(currentBoard).then(() => publish());
         }
     });
-})()
+})();
+
+const callbacks = [];
+export const subscribeToRenderList = (cb) => {
+    callbacks.push(cb);
+};
+export function publish() {
+    callbacks.forEach(cb => cb());
+}
 
 // Save to database and re-render list
 export function renderList(listId, options = { save: true }) {
@@ -67,7 +74,7 @@ export function renderList(listId, options = { save: true }) {
         })
             .then(() => socket.emit('update'))
             .catch(err => console.log(err)); // Show a network error dialog if there's no internet connection
-    }
+    } 
     // Render
     const list = document.querySelector(`#${listId}`);
     list.innerHTML = '';

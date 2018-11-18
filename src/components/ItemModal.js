@@ -3,8 +3,8 @@ import moment from 'moment';
 // Components
 import Comment from './Comment';
 // Modules
-import { store, renderList } from '../index';
-import { fadeOut, getListKey, findAndReplaceLinks } from '../utils';
+import { store, renderList, subscribeToRenderList } from '../index';
+import { fadeOut, getListKey, findAndReplaceLinks, getItem } from '../utils';
 import { startAddComment } from '../redux/actions/lists';
 
 const ItemModal = (props) => {
@@ -31,8 +31,8 @@ const ItemModal = (props) => {
     dateEl.innerHTML = moment(item.date).format('MM/DD/YYYY');
     infoEl.appendChild(dateEl);
 
-    const commentsContainerEl = document.createElement('div');
-    commentsContainerEl.className = 'comments-container';
+    const commentsSectionEl = document.createElement('div');
+    commentsSectionEl.className = 'comments-container';
 
     
     const commentsContainerHeaderEl = document.createElement('div');
@@ -44,17 +44,26 @@ const ItemModal = (props) => {
     addCommentEl.style.cursor = 'pointer';
     addCommentEl.addEventListener('click', () => handleAddCommentClick(props));
     commentsContainerHeaderEl.appendChild(addCommentEl);
-    commentsContainerEl.appendChild(commentsContainerHeaderEl);
+    commentsSectionEl.appendChild(commentsContainerHeaderEl);
+
+    const commentsContainerEl = document.createElement('div');
+    commentsContainerEl.className = 'comments-container-actual'; // Too lazy to change the names for now :)))
+    commentsSectionEl.appendChild(commentsContainerEl);
     // Render existing comments
-    item.comments.forEach(comment => commentsContainerEl.appendChild(Comment({ ...comment, color: item.color })));
+    renderComments(commentsContainerEl, item);
     const blankStateEl = document.createElement('div');
     blankStateEl.className = 'comment-blank-state';
     blankStateEl.innerHTML = "You haven't made any comments yet"
-    item.comments.length === 0 && commentsContainerEl.appendChild(blankStateEl);
+    item.comments.length === 0 && commentsSectionEl.appendChild(blankStateEl);
 
     modal.appendChild(modalContent);
     modalContent.append(infoEl);
-    modalContent.append(commentsContainerEl);
+    modalContent.append(commentsSectionEl);
+
+    subscribeToRenderList(() => {
+        const updatedItem = getItem(store.getState().lists, item.id);
+        renderComments(commentsContainerEl, updatedItem);
+    })
 
     return modal;
 };
@@ -72,7 +81,7 @@ function handleAddCommentClick({ item: { id, color }, parentListId }) {
         submitButton.innerHTML = 'Submit';
         commentForm.appendChild(textArea);
         commentForm.appendChild(submitButton);
-        document.querySelector('.comments-container').appendChild(commentForm);
+        document.querySelector('.comments-container-actual').appendChild(commentForm);
         textArea.focus();
         textArea.scrollIntoView();
         commentForm.addEventListener('submit', (e) => {
@@ -83,7 +92,7 @@ function handleAddCommentClick({ item: { id, color }, parentListId }) {
             };
             store.dispatch(startAddComment(getListKey(parentListId), id, comment));
             // Add to currently open modal and renderList to save changes
-            document.querySelector('.comments-container').appendChild(Comment({ ...comment, color }));
+            document.querySelector('.comments-container-actual').appendChild(Comment({ ...comment, color }));
             renderList(parentListId);
             e.target.remove();
             // Remove blank state if it exists
@@ -91,6 +100,13 @@ function handleAddCommentClick({ item: { id, color }, parentListId }) {
             blankStateEl && blankStateEl.remove();
         });
     }
+}
+
+function renderComments(containerEl, item) {
+    containerEl.innerHTML = '';
+    item.comments
+        .sort((a, b) => a.date < b.date ? -1 : 1)
+        .forEach(comment => containerEl.appendChild(Comment({ ...comment, color: item.color })));
 }
 
 export default ItemModal;
