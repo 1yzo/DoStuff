@@ -46,7 +46,7 @@ let currentBoard;
     }
 
     window.history.pushState({}, '', currentBoard);
-    socket = io('http://localhost:3000');
+    socket = io('http://ec2-107-22-155-164.compute-1.amazonaws.com');
     socket.on('connect', () => {
         socket.emit('new user', currentBoard);
     });
@@ -82,7 +82,7 @@ export function renderList(listId, options = { save: true }) {
 
     // Save
     if (options.save) {
-        return fetch(`http://localhost:3000/boards/${currentBoard}`, {
+        return fetch(`http://ec2-107-22-155-164.compute-1.amazonaws.com/boards/${currentBoard}`, {
             method: 'PUT', 
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
