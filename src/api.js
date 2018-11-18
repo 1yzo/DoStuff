@@ -3,13 +3,13 @@ import { setList } from './redux/actions/lists';
 import { mapLinkPreviews } from './utils';
 
 export const createBoard = async () => {
-    const res = await fetch('http://ec2-107-22-155-164.compute-1.amazonaws.com/boards', { method: 'POST' });
+    const res = await fetch('http://localhost:3000/boards', { method: 'POST' });
     const payload = await res.json();
     return payload._id;
 };
 
 export const loadBoard = (currentBoard) => {
-    return fetch(`http://ec2-107-22-155-164.compute-1.amazonaws.com/boards/${currentBoard}`)
+    return fetch(`http://localhost:3000/boards/${currentBoard}`)
         .then(res => { 
             if (res.status === 200) return res.json() 
             else throw new Error('Something went wrong.')
