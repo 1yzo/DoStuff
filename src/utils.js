@@ -40,7 +40,7 @@ export const getLinkPreview = async text => {
     if (links.length) {
         const link = links[0].includes('htt') ? links[0] : `http://${links[0]}`;
         try {
-            const res = await fetch(`http://localhost:3000/api/link_preview/?link=${link}`, { method: 'POST' });
+            const res = await fetch(`http://do-stuff.s3-website-us-west-1.amazonaws.com/api/link_preview/?link=${link}`, { method: 'POST' });
             const payload = await res.json();
             if (Object.keys(payload).length) return payload;
         } catch (e) {

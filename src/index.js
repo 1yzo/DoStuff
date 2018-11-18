@@ -8,12 +8,12 @@ import AddItemModal from './components/AddItemModal';
 import { getListKey, fadeIn, fadeOut } from './utils';
 import configureStore from './redux/configureStore';
 import { createBoard, loadBoard } from './api';
+import { setJustDroppedId } from './redux/actions/config';
 // Styles
 import './styles/base.css';
 import './styles/header.css';
 import './styles/modal.css';
 import './styles/inputs.css';
-import { setJustDroppedId } from './redux/actions/config';
 
 export const store = configureStore();
 let socket;
@@ -42,7 +42,7 @@ let currentBoard;
     }
 
     window.history.pushState({}, '', currentBoard);
-    socket = io('http://localhost:3000');
+    socket = io('http://do-stuff.s3-website-us-west-1.amazonaws.com');
     socket.on('connect', () => {
         socket.emit('new user', currentBoard);
     });
@@ -67,7 +67,7 @@ export function renderList(listId, options = { save: true }) {
     const listKey = getListKey(listId);
     // Save
     if (options.save) {
-        fetch(`http://localhost:3000/boards/${currentBoard}`, {
+        fetch(`http://do-stuff.s3-website-us-west-1.amazonaws.com/boards/${currentBoard}`, {
             method: 'PUT', 
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
