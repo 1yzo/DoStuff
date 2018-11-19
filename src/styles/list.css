@@ -3,16 +3,17 @@
     margin-top: 30px;
     margin-bottom: 10px;
     justify-content: space-between;
+    padding: 0 80px;
 }
 
 .list-parent {
     border-radius: 5px;
     box-shadow: 2px 1px 10px rgba(114, 119, 126, 0.329);
+    width: 400px;
 }
 
 .list {
     background: #eee;
-    width: 400px;
     height: 600px;
     padding: 0 15px;
     overflow-y: auto;
@@ -29,4 +30,29 @@
     padding: 15px;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
+}
+
+@media (max-width: 1430px) {
+    .list-parent {
+        width: 345px;
+    }
+}
+@media (max-width: 1230px) {
+    #list-container {
+        padding: 0 30px;
+    }
+}
+@media (max-width: 1130px) {
+    .list-parent {
+        width: 300px;
+    }
+}
+@media (max-width: 1000px) {
+    #list-container {
+        flex-direction: column;
+    }
+    .list-parent {
+        width: 100%;
+        margin-bottom: 30px;
+    }
 }
