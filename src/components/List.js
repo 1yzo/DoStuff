@@ -42,8 +42,7 @@ async function handleDrop(e) {
     await store.dispatch(startRemoveItem(getListKey(sourceParentListId), itemProps.index));
     await store.dispatch(startPushItem(getListKey(destParentListId), itemProps));
     // Re-render the involved lists
-    await renderList(sourceParentListId);
-    await renderList(destParentListId)
+    await Promise.all([renderList(sourceParentListId), renderList(destParentListId)]);
     emit('update', store.getState().config.justDroppedId);
 };
 
