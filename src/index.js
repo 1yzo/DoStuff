@@ -5,7 +5,7 @@ import Item from './components/Item';
 import List from './components/List';
 import AddItemModal from './components/AddItemModal';
 // Modules
-import { getListKey, fadeIn, fadeOut } from './utils';
+import { getListKey, fadeIn, fadeOut, fadeOutAlt } from './utils';
 import configureStore from './redux/configureStore';
 import { createBoard, loadBoard } from './api';
 import { setJustDroppedId } from './redux/actions/config';
@@ -56,7 +56,12 @@ let currentBoard;
             loadBoard(currentBoard).then(() => publish());
         }
     });
-})();
+})()
+    .then(() => {
+        const spinnerMask = document.querySelector('#spinner-mask');
+        spinnerMask.style.opacity = 1;
+        fadeOut(spinnerMask, 200);
+    });
 
 const callbacks = [];
 export const subscribeToRenderList = (cb) => {
