@@ -117,3 +117,15 @@ window.addEventListener('keypress', (e) => {
         modal && fadeOut(modal, 200);
     }
 });
+
+// Link button
+const linkButton = document.querySelector('.link-button');
+linkButton.addEventListener('click', () => {
+    const tempInput = document.createElement('input');
+    tempInput.style = "position: absolute; left: -1000px; top: -1000px";
+    tempInput.value = window.location.href;
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    document.execCommand("copy");
+    tempInput.remove();
+});

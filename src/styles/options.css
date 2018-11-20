@@ -1,5 +1,5 @@
 #trash-option-container {
-    margin-right: 20px;
+    margin-right: 18px;
 }
 
 .option--trash {
@@ -9,4 +9,9 @@
 
 .option--trash--over {
     color: #ff5630;
+}
+
+.link-button {
+    margin-right: 15px;
+    cursor: pointer;
 }

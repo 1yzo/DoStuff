@@ -1,9 +1,7 @@
 header {
     background: #6078ff;
-    /* background-image: linear-gradient(0deg, #6078ff, #8660fe); */
     padding: 30px 80px;
     box-shadow: 2px 5px 10px rgba(114, 119, 126, 0.329);
-    /* text-shadow: 2px 1px 10px rgba(0,0,0,0.25); */
 }
 
 header i {
@@ -22,9 +20,9 @@ header > div {
     align-items: center;
 }
 
-.logo-container i {
+/* .logo-container i {
     margin-right: 7px;
-}
+} */
 
 .logo-container h1 {
     color: white;
