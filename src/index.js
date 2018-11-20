@@ -23,9 +23,9 @@ export const emit = (name, data) => {
 };
 
 const listContainer = document.querySelector('#list-container');
-listContainer.appendChild(List({ id: 'todo-list', title: 'Stuff To-do' }));
-listContainer.appendChild(List({ id: 'doing-list', title: "Stuff I'm Doing" }));
-listContainer.appendChild(List({ id: 'done-list', title: 'Stuff I Did'}));
+listContainer.appendChild(List({ id: 'todo-list', title: 'Stuff To Do' }));
+listContainer.appendChild(List({ id: 'doing-list', title: "Stuff Being Done" }));
+listContainer.appendChild(List({ id: 'done-list', title: "Stuff That's Done" }));
 
 // If an id is in the url try to laod that board, otherwise create a new one.
 let currentBoard; 
