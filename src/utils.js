@@ -63,13 +63,13 @@ export const mapLinkPreviews = list => {
     })
     const promises = list.map(item => getItemWithPreview(item));
     return Promise.all(promises);
-}
+};
 
 export const shortenText = (text, limit) => {
     if (text.length > limit) {
         return text.slice(0, limit) + '...';
     } else return text;
-}
+};
 
 export const getItem = (lists, itemId) => {
     for (let key in lists) {
@@ -79,4 +79,14 @@ export const getItem = (lists, itemId) => {
             }
         }
     }
-}
+};
+
+export const copyToClipboard = (value) => {
+    const tempInput = document.createElement('input');
+    tempInput.style = "position: absolute; left: -1000px; top: -1000px";
+    tempInput.value = value;
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    document.execCommand('copy');
+    tempInput.remove();
+};

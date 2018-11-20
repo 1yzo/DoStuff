@@ -11,7 +11,24 @@
     color: #ff5630;
 }
 
-.link-button {
+.option--link {
     margin-right: 15px;
     cursor: pointer;
+    position: relative;
+}
+
+.option--link__tooltip {
+    position: absolute;
+    opacity: 0;
+    top: calc(100% + 6.5px);
+    left: 50%;
+    transform: translate(-50%, 0);
+    background-color: white;
+    font-size: 15px;
+    padding: 5px 10px;
+    color: rgba(0,0,0,.84);
+    font-family: 'Lato', sans-serif;
+    border-radius: 2px;
+    width: 188px;
+    box-shadow: 2px 1px 10px rgba(114, 119, 126, 0.329);
 }

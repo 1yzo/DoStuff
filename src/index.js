@@ -5,7 +5,7 @@ import Item from './components/Item';
 import List from './components/List';
 import AddItemModal from './components/AddItemModal';
 // Modules
-import { getListKey, fadeIn, fadeOut, fadeOutAlt } from './utils';
+import { getListKey, fadeIn, fadeOut, copyToClipboard } from './utils';
 import configureStore from './redux/configureStore';
 import { createBoard, loadBoard } from './api';
 import { setJustDroppedId } from './redux/actions/config';
@@ -119,13 +119,15 @@ window.addEventListener('keypress', (e) => {
 });
 
 // Link button
-const linkButton = document.querySelector('.link-button');
+const linkButton = document.querySelector('.option--link');
 linkButton.addEventListener('click', () => {
-    const tempInput = document.createElement('input');
-    tempInput.style = "position: absolute; left: -1000px; top: -1000px";
-    tempInput.value = window.location.href;
-    document.body.appendChild(tempInput);
-    tempInput.select();
-    document.execCommand("copy");
-    tempInput.remove();
+    copyToClipboard(window.location.href);
+    const tooltipEl = document.createElement('div');
+    tooltipEl.className = 'option--link__tooltip';
+    tooltipEl.innerHTML = 'Link copied to clipboard!';
+    linkButton.appendChild(tooltipEl);
+    fadeIn(tooltipEl, 100);
+    setTimeout(() => {
+        fadeOut(tooltipEl, 100);
+    }, 1000);
 });
