@@ -63,9 +63,12 @@ let currentBoard;
         fadeOut(spinnerMask, 200);
     });
 
-const callbacks = [];
+let callbacks = [];  // For now this gets emptied every time esc is pressed
 export const subscribeToRenderList = (cb) => {
     callbacks.push(cb);
+};
+export const unsubscribeFromRenderList = (func) => {
+    callbacks = callbacks.filter(cb => cb !== func);
 };
 export function publish() {
     callbacks.forEach(cb => cb());
@@ -115,7 +118,10 @@ window.addEventListener('keypress', (e) => {
     if (e.keyCode === 27) {
         const modal = document.querySelector('.modal-mask');
         modal && fadeOut(modal, 200);
+        callbacks = [];
     }
+
+    console.log(callbacks);
 });
 
 // Link button

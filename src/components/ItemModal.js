@@ -3,7 +3,7 @@ import moment from 'moment';
 // Components
 import Comment from './Comment';
 // Modules
-import { store, renderList, subscribeToRenderList, emit } from '../index';
+import { store, renderList, subscribeToRenderList, unsubscribeFromRenderList, emit } from '../index';
 import { fadeOut, getListKey, findAndReplaceLinks, getItem } from '../utils';
 import { startAddComment } from '../redux/actions/lists';
 
@@ -12,7 +12,12 @@ const ItemModal = (props) => {
 
     const modal = document.createElement('div');
     modal.className = 'modal-mask';
-    modal.addEventListener('click', e => e.target.className === 'modal-mask' && fadeOut(modal, 200));
+    modal.addEventListener('click', e => {
+        if (e.target.className === 'modal-mask') {
+            unsubscribeFromRenderList(updateComments);
+            fadeOut(modal, 200)
+        }
+    });
 
     const modalContent = document.createElement('div');
     modalContent.className = 'modal-content--details';
@@ -60,10 +65,11 @@ const ItemModal = (props) => {
     modalContent.append(infoEl);
     modalContent.append(commentsSectionEl);
 
-    subscribeToRenderList(() => {
+    function updateComments() {
         const updatedItem = getItem(store.getState().lists, item.id);
         renderComments(commentsContainerEl, updatedItem);
-    })
+    }
+    subscribeToRenderList(updateComments);
 
     return modal;
 };
