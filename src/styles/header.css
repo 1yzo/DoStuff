@@ -40,3 +40,12 @@ header > div {
         padding: 30px 30px;
     }
 }
+
+@media (max-width: 420px) {
+    header i {
+        font-size: 25px;
+    }
+    .logo-container h1 {
+        font-size: 30px;
+    }
+}
