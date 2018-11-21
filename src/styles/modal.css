@@ -93,3 +93,14 @@
     margin-top: 35px;
     color: #A5ADBA;
 }
+
+@media (max-width: 705px) {
+    .modal-content {
+        width: 300px;
+        padding: 15px;
+    }
+    .modal-content--details {
+        width: 300px;
+        padding: 15px;
+    }
+}

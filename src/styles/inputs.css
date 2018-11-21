@@ -36,3 +36,10 @@
     border: solid 3px #A5ADBA;
     transform: scale(1.6);
 }
+
+@media (max-width: 705px) {
+    .color-picker {
+        width: 30px;
+        height: 30px;
+    }
+}
