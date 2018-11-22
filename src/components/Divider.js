@@ -5,7 +5,6 @@ import { startInsertItem } from '../redux/actions/lists';
 // Styles
 import '../styles/divider.css';
 
-
 // props.index represents what the new index of the dropped item should be
 const Divider = (props) => {
     const dividerEl = document.createElement('div');

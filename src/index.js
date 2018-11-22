@@ -120,8 +120,6 @@ window.addEventListener('keypress', (e) => {
         modal && fadeOut(modal, 200);
         callbacks = [];
     }
-
-    console.log(callbacks);
 });
 
 // Link button
