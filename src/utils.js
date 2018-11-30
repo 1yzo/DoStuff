@@ -25,7 +25,7 @@ export const fadeOut = (element, duration) => {
 };
 
 export const findAndReplaceLinks = text => {
-    const exp = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-=?]*)*\/?$/;
+    const exp = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.\-=?]*)*\/?$/;
     return text.split(' ').map(word => {
         return word.replace(exp, match => {
             const href = match.includes('htt') ? match : `http://${match}`;
@@ -35,7 +35,7 @@ export const findAndReplaceLinks = text => {
 };
 
 export const getLinkPreview = async text => {
-    const exp = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-=?]*)*\/?$/;
+    const exp = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.\-=?]*)*\/?$/;
     const links = text.split(' ').filter(word => exp.test(word));
     if (links.length) {
         const link = links[0].includes('htt') ? links[0] : `http://${links[0]}`;
